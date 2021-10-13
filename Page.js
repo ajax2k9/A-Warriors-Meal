@@ -37,7 +37,7 @@ class Panel{
         });
 
 
-        this.icon = createImg("images/"+_name+".png","tent");
+        this.icon = createImg("images/"+_name.toLowerCase()+".png","_name");
         this.icon.parent(this.box);
         this.icon.position(110,70);
         this.icon.size(70,60);
