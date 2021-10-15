@@ -10,8 +10,22 @@ let bbar = [];
 
 let p1,p2;
 
+let loaded = false;
 function preload() {
   loadJSON("pantry.json",GetData);
+  loadJSON("customers.json",GetCustomers);
+  loaded = true;
+}
+
+function GetCustomers(_data){
+  const keys = Object.keys(_data);
+  for (const key of keys) {
+     let cust = new Customer(key);
+     cust.AddTrade(inventory[_data[key][0][0]],_data[key][0][1]);
+     cust.AddLike(new Ingredient(_data[key][1][0],_data[key][1][1],true));
+
+     customers.push(cust);
+  }
 
 }
 
@@ -50,6 +64,8 @@ function GetData(_data){
 
 
 function setup() {
+
+  if(loaded == false) return;
   mainInfo = createElement("mainInfo");
   stall = new Stall("Stall");
   msgBoard = new MessageBoard();
@@ -64,7 +80,6 @@ function setup() {
   selector = new Selector();
   selectedAction = undefined;
   
-  AddCustomers();
   SetupQuests();
   SetupMainInfo();
   UpdateCustomers(stall.slots);  

@@ -10,8 +10,10 @@ class Customer{
     AddLike(_ingredient){
         this.likes.push(_ingredient);
     }
-    AddTrade(_item){
-        this.trades.push(_item);
+
+    AddTrade(_item,_quant){
+ 
+        this.trades.push({"item":_item,"quant":_quant});
     }
 
     AttachSlots(_slots){
@@ -37,7 +39,7 @@ class Customer{
         let trade = this.trades[rand] ;
         let level = pantry[choice.name].level + 1;
         
-         storage.UpdateInventory(trade, level);
+         storage.UpdateInventory(trade.item, level * trade.quant);
          pantry[choice.name].quant-=choice.reqQuant;
          successfulTrades++;
          player.popularity++;
@@ -46,19 +48,15 @@ class Customer{
             selector.UnlockPage(3);
          } 
 
-        tradeMsg = "A "+this.name+ " traded " + level +"x"+ GetImage(trade.name) + "for"+choice.reqQuant +"x"+GetImage(choice.name);
+        tradeMsg = "A "+this.name+ " traded " + (trade.quant * level) +"x"+ GetImage(trade.item.name) + "for"+choice.reqQuant +"x"+GetImage(choice.name);
         return tradeMsg;
     }
 }
 
 
 
-function AddCustomers(){
-    let cust = new Customer("knight");
-    cust.AddLike(new Ingredient("steak",2,true));
-    cust.AddTrade(pantry["stone"]);
-
-    customers.push(cust);
+function AddCustomers(_cust){
+    customers.push(_cust);
 }
 
 function UpdateCustomers(_slots){
@@ -68,7 +66,7 @@ function UpdateCustomers(_slots){
 }
 
 
-let maxCustomerTime = 50;
+let maxCustomerTime = 20;
 let customerTime = 0;
 let displayTime = 0;
 let maxDisplayTime = 40;

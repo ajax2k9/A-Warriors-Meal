@@ -1,3 +1,4 @@
+
 class Quest{
     constructor(_name, _popReq,_parent,_party,_combat){
         this.name = _name;

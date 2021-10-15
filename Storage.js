@@ -14,8 +14,6 @@ class Storage extends Page{
         this.label.style("text-align","center");
         this.label.size(940,20);
 
-
-
         this.info = createElement("Storage_info");
         this.info.parent(this.box);
         this.info.position(0,30);
