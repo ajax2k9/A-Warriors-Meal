@@ -61,17 +61,14 @@ class Quest{
 
 
 class CombatInfo{
-    constructor(_parent,_x,_y){
+    constructor(_parent){
         this.p1 =player.party;
         this.p2 =new Party();
 
         this.box = createElement("Combat");
-        this.box.class("station");
-
+        this.box.class("box");
+        this.box.addClass("questInfo");
         this.box.parent(_parent);
-        this.box.size(400,600);
-        this.box.position(_x,_y);
-        this.box.style("align","center");
     
         this.bbar = new DirtyDylansBattleBar(this.p1,this.p2, this.box);
         this.bbar.Position(40,30);
@@ -168,7 +165,7 @@ class MessageBoard extends Page{
     constructor(){
         super("Quests");
         this.quests = [];
-        this.unlocked = true;
+        this.unlocked = false;
 
         this.combat = new CombatInfo(this.page,250,0);
     }

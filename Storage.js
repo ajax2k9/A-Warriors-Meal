@@ -2,10 +2,8 @@ class Storage extends Page{
     constructor(){
         super("Storage");
         
-        
-
         this.box = createElement("info");
-        this.box.class("station");
+        this.box.class("box");
         this.box.parent(this.page);
         this.box.position(10,0);
         this.box.size(940,265);

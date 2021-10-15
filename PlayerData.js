@@ -36,7 +36,7 @@ class Player{
         this.hunger = new Stat(50);
         this.resting = false;
         this.exp = new Exp(50);
-        this.popularity = 12;
+        this.popularity = 0;
  
         this.time =0;
         this.processTime = 10;

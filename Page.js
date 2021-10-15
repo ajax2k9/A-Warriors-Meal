@@ -24,7 +24,7 @@ class Panel{
         
         this.progBar = new ProgBar(this.processTime,this.box);
         this.progBar.Position(60,180);
-        this.progBar.SetSize(190,4);
+        this.progBar.SetSize(155,4);
 
         //main box
         this.box.mousePressed(()=>{

@@ -14,7 +14,7 @@ class Coop extends Panel{
         this.feedBar = new ProgBar(this.feedTime,this.box);
         this.feedBar.pbar.style("background-color","green");
         this.feedBar.Position(60,170);
-        this.feedBar.SetSize(190,4);
+        this.feedBar.SetSize(155,4);
 
         this.operation = "none";
         this.seeds = 0;
@@ -57,7 +57,7 @@ class Coop extends Panel{
 class Farm extends Page{
     constructor(){
         super("Farm");
-        this.unlocked = true;
+        this.unlocked = false;
         this.coop = new Coop(1,1,this.page);
     }
 

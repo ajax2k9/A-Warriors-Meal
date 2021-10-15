@@ -40,6 +40,7 @@ class Customer{
          storage.UpdateInventory(trade, level);
          pantry[choice.name].quant-=choice.reqQuant;
          successfulTrades++;
+         player.popularity++;
 
          if(successfulTrades >5 && !msgBoard.unlocked){
             selector.UnlockPage(3);

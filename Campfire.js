@@ -23,7 +23,7 @@ class Campfire extends Panel{
         this.loadBar = new ProgBar(this.loadingTime,this.box);
         this.loadBar.pbar.style("background-color","green");
         this.loadBar.Position(60,170);
-        this.loadBar.SetSize(190,4);
+        this.loadBar.SetSize(155,4);
     }
 
     UpdateBuffer(){

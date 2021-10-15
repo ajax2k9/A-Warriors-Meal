@@ -10,7 +10,7 @@ class Stall extends Page{
         let _spacing = 100;
         
         this.box2 = createElement("info");
-        this.box2.class("station");
+        this.box2.class("box");
         this.box2.parent(this.page);
         this.box2.position(10,110);
         this.box2.size(400,150);
@@ -31,7 +31,7 @@ class Stall extends Page{
         this.reel.class("infotext");
 
         this.box = createElement("Bench");
-        this.box.class("station");
+        this.box.class("box");
         this.box.parent(this.page);
         this.box.position(10,5);
         this.box.size(400,100);
