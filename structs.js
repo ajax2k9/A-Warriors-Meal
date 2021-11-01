@@ -56,8 +56,12 @@ class Party{
     }
 
     AddUnit(_unit){
-        this.units.push(_unit);
+        this.units.push(new Unit(_unit.name,_unit.health,_unit.def,_unit.atk,_unit.dmg));
         this.UpdateStats();
+    }
+
+    DeleteUnit(_index){
+        this.units.splice(_index,1);
     }
 
     UpdateStats(){

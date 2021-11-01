@@ -18,7 +18,7 @@ class Panel{
 
         //input1
         this.input1 = new EmptyStackElement(this.box);
-        this.input1.bkgd.addClass("input");
+        this.input1.bkgd.addClass("bot_left");
 
         this.stacks =[];
         

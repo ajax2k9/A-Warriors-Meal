@@ -50,13 +50,12 @@ class Storage extends Page{
         
     }
 
-    UpdateInventory(_is,_quant){
-        if(inventory[_is.name] == undefined){
-            inventory[_is.name] = _is;
-            inventory[_is.name].quant =_quant;
+    UpdateInventory(_name,_quant){
+        if(inventory[_name] == undefined){
+            inventory[_name] ={"name":_name,"quant":_quant};
             this.DisplayInventory();
         } else {
-            inventory[_is.name].quant += _quant;
+            inventory[_name].quant += _quant;
         }
     }
 

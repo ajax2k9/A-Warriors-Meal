@@ -7,6 +7,7 @@ let selector;
 let selected;
 let stall;
 let customers = [];
+let units = {};
 let msgBoard; 
 let mainInfo;
 let storage;
@@ -45,10 +46,6 @@ class Player{
         this.campfireEffect = false;
 
         this.party = new Party(0);
-        this.party.AddUnit(new Unit("knight",200,4,2,30));
-        this.party.AddUnit(new Unit("Orc",100,200,200,400));
-        this.party.AddUnit(new Unit("Monkey",500,4,2,20));
-
     }
 
     Update(){

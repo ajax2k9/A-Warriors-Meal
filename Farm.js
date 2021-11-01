@@ -9,7 +9,7 @@ class Coop extends Panel{
 
         this.input1.AddStackList(this.stacks);
         this.buffer = new ItemStackElement(pantry["chicken"],this.box);
-        this.buffer.bkgd.addClass("output");
+        this.buffer.bkgd.addClass("bot_right");
 
         this.feedBar = new ProgBar(this.feedTime,this.box);
         this.feedBar.pbar.style("background-color","green");

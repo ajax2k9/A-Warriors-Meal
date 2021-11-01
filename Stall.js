@@ -1,50 +1,24 @@
-class Stall extends Page{
-    constructor(){
-        super("Bench");
-        
-        this.menuItems = [];
-        this.unlocked = true;
-
-        let _y = 40;
-        let _x = 30;
-        let _spacing = 100;
-        
-        this.box2 = createElement("info");
-        this.box2.class("box");
-        this.box2.parent(this.page);
-        this.box2.position(10,110);
-        this.box2.size(400,150);
-
-        this.label2 = createP("Customer");
-        this.label2.parent(this.box2);
-        this.label2.position(0,-10);
-        this.label2.style("text-align","center");
-        this.label2.size(400,20);
-
-        this.box3 = createElement("info");
-        this.box3.class("info");
-        this.box3.parent(this.box2);
-    
-        this.reel = createP("");
-        this.reel.parent(this.box3);
-        this.reel.position(0,0);
-        this.reel.class("infotext");
-
-        this.box = createElement("Bench");
+class Bench{
+    constructor(_parent,_name,_x,_y){
+        this.box = createElement("Basket");
         this.box.class("box");
-        this.box.parent(this.page);
-        this.box.position(10,5);
-        this.box.size(400,100);
+        this.box.parent(_parent);
+        this.box.style("grid-row",_y + " / " + (_y+1));
+        this.box.style("grid-column",_x + " / " + (_x+1));
 
-        this.label = createP("Log Table");
+        this.label = createP(_name);
         this.label.parent(this.box);
-        this.label.position(150,0);
+        this.label.class("title");
 
-        this.slot1 = new EmptyStackElement(this.box,_x,_y);
-        this.slot2 = new EmptyStackElement(this.box,_x + _spacing * 1,_y);
-        this.slot3 = new EmptyStackElement(this.box,_x + _spacing * 2,_y);
-        this.slot4 = new EmptyStackElement(this.box,_x + _spacing * 3,_y);
-
+        this.slot1 = new EmptyStackElement(this.box);
+        this.slot1.bkgd.addClass("bot_left");
+        this.slot2 = new EmptyStackElement(this.box);
+        this.slot2.bkgd.addClass("bot_right");
+        this.slot3 = new EmptyStackElement(this.box);
+        this.slot3.bkgd.addClass("top_right");
+        this.slot4 = new EmptyStackElement(this.box);
+        this.slot4.bkgd.addClass("top_left");
+        
         this.stacks = [];
         this.slots = [];
 
@@ -55,9 +29,8 @@ class Stall extends Page{
     }
 
     DisplayPage(){
-        this.page.show();
-        this.active = true;
         this.stacks = [];
+        
         const keys = Object.keys(pantry);
         for (const key of keys) {
             if(pantry[key] instanceof Food){
@@ -65,35 +38,122 @@ class Stall extends Page{
             }
         }
 
-        this.stackList1 = new ItemListDisplay(this.stacks,this.slot1);
-        this.stackList2 = new ItemListDisplay(this.stacks,this.slot2);
-        this.stackList3 = new ItemListDisplay(this.stacks,this.slot3);
-        this.stackList4 = new ItemListDisplay(this.stacks,this.slot4);
+        this.slot1.AddStackList(this.stacks);
+        this.slot2.AddStackList(this.stacks);
+        this.slot3.AddStackList(this.stacks);
+        this.slot4.AddStackList(this.stacks);
     }
 
     Draw(){
-       if(!this.stackList1.visible){
         this.slot1.Draw();
-       } else {
-           this.stackList1.Draw();
-       }
-
-       if(!this.stackList2.visible){
         this.slot2.Draw();
-       } else {
-           this.stackList2.Draw();
-       }
-
-       if(!this.stackList3.visible){
         this.slot3.Draw();
-       } else {
-           this.stackList3.Draw();
-       }
-
-       if(!this.stackList4.visible){
         this.slot4.Draw();
-       } else {
-           this.stackList4.Draw();
-       }
+    }
+}
+
+class Stall extends Page{
+    constructor(){
+        super("Bench");
+        
+        this.menuItems = [];
+        this.unlocked = true;
+        this.trade_msg ="";
+        let _y = 40;
+        let _x = 30;
+        
+        this.box2 = createElement("info");
+        this.box2.class("box");
+        this.box2.parent(this.page);
+        this.box2.style("grid-row","2 / 4");
+        this.box2.style("grid-column","1 / 3");
+        
+        this.label2 = createP("Customer");
+        this.label2.parent(this.box2);
+        this.label2.class("title");
+        
+        this.box3 = createElement("info");
+        this.box3.class("info");
+        this.box3.parent(this.box2);
+    
+        this.reel = createP("");
+        this.reel.parent(this.box3);
+        this.reel.position(0,0);
+        this.reel.class("infotext");
+
+        this.displayTime = new Timer(10);
+        this.offerTime = new Timer(30);
+        this.customerTime = new Timer(30);
+        this.offerTime.Set(15);
+        
+
+        this.basket = new Bench(this.page,"Offering Basket",2,1);
+        this.bench = new Bench(this.page,"Oak Bench",1,1);
+    }
+
+    DisplayPage(){
+        super.DisplayPage();
+        this.basket.DisplayPage();
+        this.bench.DisplayPage();
+        
+    }
+
+    
+ PerformTrades(){
+    if(customers.length > 0 && this.bench.slots != undefined){
+        
+        if(this.customerTime.Update()) {        
+            let tries = 10;
+            while(this.trade_msg == "" && tries > 0){
+                let custIndx = Math.floor(Math.random() * customers.length);  
+                this.trade_msg = customers[custIndx].PerformTrade(this.bench.slots);    
+                tries--;
+            }
+
+            if(this.trade_msg != ""){
+                this.reel.html(this.trade_msg);
+                this.displayTime.Reset();
+            }
+
+        } else {
+           
+            this.trade_msg = "";
+        }
+      }
+}
+
+ PerformOffers(){
+    if(customers.length > 0 && this.basket.slots != undefined){
+
+    if(this.offerTime.Update()) {
+            let tries = 10;
+            while(this.trade_msg == "" && tries > 0){
+                let custIndx = Math.floor(Math.random() * customers.length);
+                this.trade_msg = customers[custIndx].PerformOffer(this.basket.slots)
+                tries--;
+            }
+
+            if(this.trade_msg != ""){
+                this.reel.html(this.trade_msg);
+                this.displayTime.Reset();
+
+            }
+
+        } else {
+            this.trade_msg = "";
+        }
+    }
+}
+
+    Draw(){
+        this.basket.Draw();
+        this.bench.Draw();
+        this.PerformTrades(this.bench,this.reel);
+        
+        this.PerformOffers(this.basket,this.reel);
+
+        if(this.displayTime.Update()){
+            this.reel.html("");
+        }
     }
 }

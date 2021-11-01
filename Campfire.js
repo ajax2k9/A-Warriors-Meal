@@ -18,7 +18,7 @@ class Campfire extends Panel{
         this.input1.AddStackList(this.stacks);
         this.tempBar = new TempBar(100,this.box);
         this.buffer = new EmptyStackElement(this.box);
-        this.buffer.bkgd.addClass("output");
+        this.buffer.bkgd.addClass("bot_right");
 
         this.loadBar = new ProgBar(this.loadingTime,this.box);
         this.loadBar.pbar.style("background-color","green");

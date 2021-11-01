@@ -8,8 +8,6 @@ let lvlLabel;
 let fileData;
 let bbar = [];
 
-let p1,p2;
-
 let loaded = false;
 function preload() {
   loadJSON("pantry.json",GetData);
@@ -21,10 +19,11 @@ function GetCustomers(_data){
   const keys = Object.keys(_data);
   for (const key of keys) {
      let cust = new Customer(key);
-     cust.AddTrade(inventory[_data[key][0][0]],_data[key][0][1]);
-     cust.AddLike(new Ingredient(_data[key][1][0],_data[key][1][1],true));
-
+     cust.AddTrade(_data[key][0],_data[key][1],_data[key][2],_data[key][3]);
      customers.push(cust);
+
+     let unit = new Unit(key,_data[key][4],_data[key][5],_data[key][6],_data[key][7]);
+     units[key] = unit;
   }
 
 }
@@ -81,8 +80,7 @@ function setup() {
   selectedAction = undefined;
   
   SetupQuests();
-  SetupMainInfo();
-  UpdateCustomers(stall.slots);  
+  SetupMainInfo();  
 }
 
 function SetupMainInfo(){
@@ -106,10 +104,6 @@ function SetupMainInfo(){
   lvlLabel.parent(lBar.pbar);
   lvlLabel.position(10,-10);
   lvlLabel.size(100,100);
-
-  p1 = new Party(200);
-  p2 = new Party(300);
-  
   
 }
 
@@ -130,7 +124,6 @@ function SetupQuests(){
 
 function draw(){
  pages.forEach(Element=>{if(Element.active)Element.Draw();})
- PerformTrades(stall);
  player.Update();
  hBar.Draw(player.health.value,player.health.max);
  sBar.Draw(player.stamina.value,player.stamina.max);
