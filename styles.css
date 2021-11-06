@@ -235,3 +235,30 @@ button:hover {
     height:600px;
     align-items: center;
 }
+
+.partyTable{
+    width: 100%;
+}
+
+table {
+    table-layout: fixed;
+    padding:10px;
+  }
+  
+  th,td{
+    width: 15%;
+    overflow: hidden;
+  }
+  
+  th:first-child,td:first-child{
+    width: 50%;
+    overflow: hidden;
+  }
+
+  tr:first-child{
+      height: 40px;
+  }
+
+  th:first-child{
+      text-align:left;
+  }

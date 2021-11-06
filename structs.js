@@ -50,18 +50,23 @@ class Stat{
  }
 
 class Party{
-    constructor(_maxVal=100){
+    constructor(_maxSize = 4){
         this.units = [];
-        this.health =new Stat(_maxVal);
+        this.health =new Stat(100);
+        this.maxSize = _maxSize;
+        this.count = 0;
     }
 
     AddUnit(_unit){
-        this.units.push(new Unit(_unit.name,_unit.health,_unit.def,_unit.atk,_unit.dmg));
+        this.units.push(new Unit(_unit.name,_unit.h.value,_unit.def,_unit.atk,_unit.dmg));
         this.UpdateStats();
+        partyInfo.LoadTable();
     }
 
     DeleteUnit(_index){
         this.units.splice(_index,1);
+        this.UpdateStats();
+        partyInfo.LoadTable();
     }
 
     UpdateStats(){

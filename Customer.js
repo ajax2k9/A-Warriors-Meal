@@ -20,6 +20,7 @@ class Customer{
         _slots.forEach(e=>{
             if(!found && e.itemStack.name == this.trade.take && e.itemStack.quant >= this.trade.quant){
                 found = true;
+                e.EmptyItemstack();
             }
         });
 

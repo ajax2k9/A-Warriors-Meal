@@ -96,10 +96,15 @@ class ItemStackElement{
         this.text.class("quant_text");
         this.changed = false;
 
-        if( this.itemStack instanceof Tool){
-            this.text.hide();
-        } else {
+        this.ShowQuant(!(this.itemStack instanceof Tool))
+       
+    }
+    
+    ShowQuant(_show){
+        if(_show){
             this.text.show();
+        } else {
+            this.text.hide();
         }
     }
 
@@ -144,7 +149,15 @@ class ItemStackElement{
         }
         this.changed = true;
     }
+
+    EmptyItemstack(){
+        this.itemStack = new ItemStack("null","images/null.png");
+        this.ChangeIcon();
+        this.text.hide();
+        this.changed = true;
+    }
 }
+
 class EmptyStackElement extends ItemStackElement{
     constructor(_parent,_x,_y,_gx,_gy){
         super(new ItemStack("null","images/null.png"),_parent,_x,_y,_gx,_gy);

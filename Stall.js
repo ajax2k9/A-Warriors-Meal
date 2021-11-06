@@ -1,3 +1,4 @@
+let partyInfo = {};
 class Bench{
     constructor(_parent,_name,_x,_y){
         this.box = createElement("Basket");
@@ -52,6 +53,57 @@ class Bench{
     }
 }
 
+class Basket extends Bench{
+    constructor(_parent,_x,_y){
+        super(_parent,"Offering Basket",_x,_y);
+
+        this.partyLabel = createP("1/4");
+        this.partyLabel.parent(this.box);
+        this.partyLabel.class("title");
+        this.partyLabel.position(0,40);
+    }
+
+    Draw(){
+        super.Draw();
+
+        this.partyLabel.html(player.party.count + "/" + player.party.maxSize);
+
+        this.slots.forEach(element => {
+            element.ShowQuant(false);
+        });
+
+    }
+}
+
+class PartyInfo{
+    constructor(_parent){
+        this.box = createElement("PartyInfo");
+        this.box.class("box");
+        this.box.parent(_parent);
+        this.box.style("grid-row","1 / 6");
+        this.box.style("grid-column","3 / 4");
+
+        this.table = createElement("party_table");
+        this.table.parent(this.box);
+        this.table.position(0,0);
+        this.table.class("partyTable");
+        this.table.html("<table><tr><th>Member</th><th><img src='images/heart.png'></th><th><img src='images/fist.png'></th><th><img src='images/sword2.png'></th><th><img src='images/shield.png'></th></tr>");
+    }
+
+    LoadTable(){
+        let str = "<table><tr><th>Member</th><th><img src='images/heart.png'></th><th><img src='images/fist.png'></th><th><img src='images/sword2.png'></th><th><img src='images/shield.png'></th></tr>";
+        let u = player.party.units;
+        u.forEach(e=>{
+            str+="<td>" + e.name+"</td><td>" + e.h.value +"</td><td>" + e.dmg + "</td><td>" + e.atk + "</td><td>" + e.def +"</td></tr>";
+        });
+
+        str+="</table>";
+
+        this.table.html(str);
+    }
+}
+
+
 class Stall extends Page{
     constructor(){
         super("Bench");
@@ -85,11 +137,10 @@ class Stall extends Page{
         this.offerTime = new Timer(30);
         this.customerTime = new Timer(30);
         this.offerTime.Set(15);
-        
-
-        this.basket = new Bench(this.page,"Offering Basket",2,1);
+        partyInfo = new PartyInfo(this.page);     
+        this.basket = new Basket(this.page,2,1);
         this.bench = new Bench(this.page,"Oak Bench",1,1);
-    }
+   }
 
     DisplayPage(){
         super.DisplayPage();
@@ -125,7 +176,7 @@ class Stall extends Page{
  PerformOffers(){
     if(customers.length > 0 && this.basket.slots != undefined){
 
-    if(this.offerTime.Update()) {
+    if(this.offerTime.Update() && player.party.count < player.party.maxSize) {
             let tries = 10;
             while(this.trade_msg == "" && tries > 0){
                 let custIndx = Math.floor(Math.random() * customers.length);
@@ -136,7 +187,6 @@ class Stall extends Page{
             if(this.trade_msg != ""){
                 this.reel.html(this.trade_msg);
                 this.displayTime.Reset();
-
             }
 
         } else {

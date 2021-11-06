@@ -45,7 +45,7 @@ class Player{
         this.defence = 0;
         this.campfireEffect = false;
 
-        this.party = new Party(0);
+        this.party = new Party(4);
     }
 
     Update(){
