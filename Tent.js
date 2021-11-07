@@ -15,7 +15,7 @@ class Tent extends Panel{
             }
         }
 
-       this.input1.AddStackList(this.stacks); 
+       this.input1.AddStackList(this.stacks,true); 
     }
 
     Draw(){

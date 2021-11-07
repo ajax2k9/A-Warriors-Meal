@@ -108,8 +108,8 @@ class ItemStackElement{
         }
     }
 
-    AddStackList(_stacks){
-        this.stackList = new ItemListDisplay(_stacks,this);
+    AddStackList(_stacks,_hideZeros = false){
+        this.stackList = new ItemListDisplay(_stacks,this,_hideZeros);
 
         this.bkgd.mousePressed(()=>{
             this.stackList.ToggleVisible();});
@@ -187,34 +187,17 @@ class TempBar{
 }
 
 class ItemListDisplay{
-    constructor(_list,_parent){
-        let spacing = 40;
-        let w = 3;
-        let h = Math.max(Math.floor(_list.length / w), 3);  
-      
+    constructor(_list,_parent,_hideZeros = false){
         this.visible = false;
         this.bkgd = createElement("item_stack");
         this.bkgd.class("item_list");
         this.bkgd.parent(_parent.bkgd);
-        this.bkgd.position(0,spacing);      
-        this.bkgd.size(w*spacing,h*spacing);
         this.bkgd.hide();
         this.dispElements = [];
-        let x =0,y = 0;
+        this.hideZeros = _hideZeros; 
+        this.list = _list;
+        this.parent = _parent;
         
-        _list.forEach(element => {
-            let stackElement = new ItemStackElement(element,this.bkgd,x,y);
-            stackElement.bkgd.mousePressed(()=>{
-                _parent.ChangeItemstack(stackElement.itemStack);
-            });
-
-            this.dispElements.push(stackElement);
-            x+=spacing;
-            if(x > 2*spacing){
-                x=0;
-                y+=spacing;
-            }
-        });
 
         _parent.bkgd.mousePressed(()=>{
             this.ToggleVisible();});
@@ -222,8 +205,36 @@ class ItemListDisplay{
     }
 
     Show(){
-        this.bkgd.show();
+        
+        this.dispElements = [];
+        let x =0,y = 0;
+        let spacing = 40;
+        
+        this.list.forEach(element => {
+            if ((this.hideZeros && element.quant > 0) || !this.hideZeros){
+                let stackElement = new ItemStackElement(element,this.bkgd,x,y);
+                stackElement.bkgd.mousePressed(()=>{
+                    this.parent.ChangeItemstack(stackElement.itemStack);
+                });
+    
+                this.dispElements.push(stackElement);
+                x+=spacing;
+                if(x > 2*spacing){
+                    x=0;
+                    y+=spacing;
+                }
+            }
+        });
+
+        if(this.dispElements.length > 0){
+            this.bkgd.show();
+            let w = 3;
+            let h = Math.max(Math.floor(this.dispElements.length / w), 3);  
+            this.bkgd.position(0,spacing);      
+            this.bkgd.size(w*spacing,h*spacing);
+        }
     }
+
     Hide(){
         this.bkgd.hide();
     }

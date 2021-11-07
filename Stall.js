@@ -29,7 +29,7 @@ class Bench{
         this.slots.push(this.slot4);
     }
 
-    DisplayPage(){
+    DisplayPage(_hideZeros = false){
         this.stacks = [];
         
         const keys = Object.keys(pantry);
@@ -39,10 +39,10 @@ class Bench{
             }
         }
 
-        this.slot1.AddStackList(this.stacks);
-        this.slot2.AddStackList(this.stacks);
-        this.slot3.AddStackList(this.stacks);
-        this.slot4.AddStackList(this.stacks);
+        this.slot1.AddStackList(this.stacks,_hideZeros);
+        this.slot2.AddStackList(this.stacks,_hideZeros);
+        this.slot3.AddStackList(this.stacks,_hideZeros);
+        this.slot4.AddStackList(this.stacks,_hideZeros);
     }
 
     Draw(){
@@ -144,7 +144,7 @@ class Stall extends Page{
 
     DisplayPage(){
         super.DisplayPage();
-        this.basket.DisplayPage();
+        this.basket.DisplayPage(true);
         this.bench.DisplayPage();
         
     }
