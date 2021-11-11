@@ -14,6 +14,12 @@ class Stat{
      this.value -= _delta;
      this.Limit();
     }
+
+    Copy(_data){
+        this.min = _data.min;
+        this.max = _data.max;
+        this.value = _data.value;
+    }
  
     Limit(){
         this.value = Math.max(this.min,Math.min(this.max,this.value));

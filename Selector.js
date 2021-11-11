@@ -18,8 +18,9 @@ class Selector {
         let _y = 4;
         let _index = 0;
         this.buttons = [];
-
+        player.unlocks = [];
         pages.forEach(Element=>{
+            player.unlocks.push(Element.unlocked);
         
             if(Element.unlocked == true){
                 let button = createButton(Element.name,Element.name);

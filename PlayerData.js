@@ -37,15 +37,26 @@ class Player{
         this.hunger = new Stat(50);
         this.resting = false;
         this.exp = new Exp(50);
-        this.popularity = 0;
- 
-        this.time =0;
-        this.processTime = 10;
-
-        this.defence = 0;
+        this.popularity = 0; 
         this.campfireEffect = false;
-
         this.party = new Party(4);
+
+        this.timer = new Timer(100);
+        this.unlocks = [];
+    }
+
+    LoadData(_data){
+        this.health.Copy(_data.health);
+        this.stamina.Copy(_data.stamina);
+        this.hunger.Copy(_data.hunger);
+        this.resting = _data.resting;
+        this.exp.Copy(_data.exp);
+        this.unlocks = _data.unlocks;
+
+        for(let i = 0; i < this.unlocks.length; i++){
+            pages[i].unlocked = this.unlocks[i];
+        }
+        selector.ShowButtons();
     }
 
     Update(){
@@ -59,7 +70,7 @@ class Player{
             this.stamina.value = this.stamina.max;
         }
 
-        if(!UpdateTime(this)) return;
+        if(!this.timer.Update()) return;
 
         if(this.resting){
             if(this.stamina.value < this.stamina.max){

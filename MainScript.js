@@ -7,8 +7,8 @@ let lvlLabel;
 
 let fileData;
 let bbar = [];
-
 let loaded = false;
+
 function preload() {
   loadJSON("pantry.json",GetData);
   loadJSON("customers.json",GetCustomers);
@@ -83,9 +83,10 @@ function setup() {
   SetupMainInfo();  
 }
 
+let test;
 function SetupMainInfo(){
   mainInfo.position(0,0);
-  mainInfo.size(208,screen.height);
+  mainInfo.size(208,windowHeight);
   mainInfo.style("background-color","black");
   
   hBar = new StatBar(mainInfo,"heart","red");
@@ -104,7 +105,44 @@ function SetupMainInfo(){
   lvlLabel.parent(lBar.pbar);
   lvlLabel.position(10,-10);
   lvlLabel.size(100,100);
+
+  let button = createButton("save","saveButton");
+  button.size(200,20);
+  button.position(0,windowHeight -40);
+  button.mousePressed(()=>{SaveData();});
+
+  let button2 = createButton("load","loadButton");
+  button2.size(200,20);
+  button2.position(0,windowHeight -80);
+  button2.mousePressed(()=>{LoadData();});  
+}
+
+function SaveData(){
+  localStorage.setItem("pantry",JSON.stringify(pantry));
+  localStorage.setItem("inventory",JSON.stringify(inventory));
   
+  localStorage.setItem("player",JSON.stringify(player));
+}
+
+function LoadData(){
+  player.LoadData(JSON.parse(localStorage.getItem("player")));
+  let savedPantry = JSON.parse(localStorage.getItem("pantry"));
+
+  const keys = Object.keys(pantry);
+  for (const key of keys) {
+    if(savedPantry[key]!=undefined){
+      pantry[key].quant = savedPantry[key].quant;
+    }
+  }
+
+  savedPantry = JSON.parse(localStorage.getItem("inventory"));
+
+  const keys2 = Object.keys(inventory);
+  for (const key of keys2) {
+    if(savedPantry[key]!=undefined){
+      inventory[key].quant = savedPantry[key].quant;
+    }
+  }
 }
 
 function UnlockFarm(){

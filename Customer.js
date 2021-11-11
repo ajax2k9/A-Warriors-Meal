@@ -12,7 +12,7 @@ class Customer{
         this.trade  = {"take":_take,"quant":_quant,"give":_give,"giveQuant":_quantExchange};
     }
 
-    TakeItems(_slots){
+    TakeItems(_slots,_emptyStack = false){
         if(this.trade.take == undefined){return;}
     
         let found = false;
@@ -20,7 +20,9 @@ class Customer{
         _slots.forEach(e=>{
             if(!found && e.itemStack.name == this.trade.take && e.itemStack.quant >= this.trade.quant){
                 found = true;
-                e.EmptyItemstack();
+                if(_emptyStack){
+                    e.EmptyItemstack();
+                }
             }
         });
 
@@ -50,7 +52,7 @@ class Customer{
 
     PerformOffer(_slots){
 
-        if(!this.TakeItems(_slots)) return "";
+        if(!this.TakeItems(_slots,true)) return "";
 
         player.party.AddUnit(units[this.name]);
         return "A "+this.name + " has joined your party for"+this.trade.quant +"x"+GetImage(this.trade.take);
