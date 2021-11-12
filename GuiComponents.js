@@ -311,20 +311,86 @@ class DirtyDylansBattleBar extends ProgBar{
 }
 
 
+class Particle {
+    constructor(_plus,_icon,_parent){
+        this.box = createElement("particle");
+        this.box.parent(_parent);
+        this.x = 0;
+        this.y = 0;
+
+        this.icon = createImg("images/" + _icon + ".png", _icon);
+
+        if(_plus){
+            this.sign = createImg("images/plus.png","plus");
+        } else {
+            this.sign = createImg("images/minus.png","minus");
+        }
+
+        this.icon.parent(this.box);
+        this.icon.position(0,0);
+        this.icon.size(32,32);
+
+        this.sign.parent(this.box);
+        this.sign.position(16,16);
+        this.sign.size(12,12);
+    }
+
+    Position(_x,_y){
+        this.x = _x;
+        this.y = _y;
+        this.box.position(_x,_y);
+    }
+}
+
+class ParticleSystem{
+    constructor(_plus,_icon,_parent,_num,_x,_y,_spread=80,_lifetime = 5){
+        this.particles = [];
+        this.plus = _plus;
+        this.icon = _icon;
+        this.parent = _parent;
+        this.num = _num;
+        this.x = _x;
+        this.y = _y;
+        this.spread = _spread; 
+        this.time = new Timer(_lifetime,false);
+
+        this.SpawnParticles();
+    }
+
+
+    KillParticles(){
+        this.particles.forEach(e=>{
+            e.box.remove();
+        });
+    }
+
+    SpawnParticles(){
+        this.particles = [];
+        for(let i = 0; i <this.num;i++){
+            let x= this.x + Math.floor(Math.random() * this.spread) -this.spread/2;
+            let y= this.y + Math.floor(Math.random() * this.spread) -this.spread/2;
+            let p = new Particle(this.plus,this.icon,this.parent);
+            p.Position(x,y);
+            this.particles.push(p);
+        }
+        this.time.Reset();
+    }
+
+    Draw(){
+        if(!this.time.Update(0.1,false)){
+            this.particles.forEach(e=>{
+                let y = e.y-1;
+                e.Position(e.x,y);
+            });
+        }else{
+            this.KillParticles();
+        }
+    }
+}
+
+
 function GetImage(_str){
     return "<img src='images/"+_str+".png' style = \" width:32px; height:32px;\">" ;
 }
 
-function AddTime(_obj,_maxVal = 100){
-    _obj.time = 0;
-    _obj.processTime = _maxVal
-}
-function UpdateTime(_obj,_deltatime = 0.1){
-    if(_obj.time < _obj.processTime){
-        _obj.time+=_deltatime;
-        return false;
-    } else {
-        _obj.time = 0;
-        return true;
-    }
-}
+

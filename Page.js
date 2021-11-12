@@ -41,6 +41,8 @@ class Panel{
         this.icon.parent(this.box);
         this.icon.position(110,70);
         this.icon.size(70,60);
+
+        this.time = new Timer(100);
         
     }
 
@@ -58,7 +60,7 @@ class Panel{
 
     Draw(){
        this.input1.Draw();
-       this.progBar.Draw(this.time,this.processTime);
+       this.progBar.Draw(this.time.currTime,this.time.maxTime);
 
     }
 }

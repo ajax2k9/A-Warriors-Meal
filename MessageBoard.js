@@ -83,7 +83,7 @@ class CombatInfo{
         this.chat.parent(this.box);
 
         this.log = [];
-        this.logDisplay = createP("<span style='color : red'>the party</span> does 12 dmg \n\n<span style='color : blue'>monster</span> does 20 dmg");
+        this.logDisplay = createP("");
         this.logDisplay.parent(this.chat);
         this.logDisplay.position(10,-2);
         this.logDisplay.size(300,500);
@@ -91,8 +91,9 @@ class CombatInfo{
         this.quest = {};
 
         this.partyTurn = false;
-        AddTime(this,20);
         this.winner = 0;
+
+        this.questTime = new Timer(20);
     }
 
     DrawLog(_newMsg){
@@ -117,9 +118,9 @@ class CombatInfo{
 
     Draw(){
         this.bbar.Draw();
-        this.pbar.Draw(this.time,this.processTime);
+        this.pbar.Draw(this.questTime.currTime,this.questTime.maxTime);
         
-        if(this.active && UpdateTime(this)){
+        if(this.active && this.questTime.Update()){
                 let choice1 = PickNumber(this.p1.count);
                 let choice2 = PickNumber(this.p2.count);
                 let u1 = this.p1.units[choice1];

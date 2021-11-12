@@ -14,6 +14,8 @@ class Forage extends Panel{
          
         this.input1.AddStackList(this.stacks);
 
+        this.time = new Timer(100);
+
     }
 
     GotAttacked(){
@@ -27,19 +29,22 @@ class Forage extends Panel{
 
     Draw(){ 
         super.Draw();
+        
+        if(this.particleSystem != undefined){
+            this.particleSystem.Draw();
+        }
 
         let tool = this.input1.itemStack;
         if ( tool instanceof Tool){
             if(this.input1.changed){
-                this.time = 0;
-                this.processTime = tool.swingTime;
+                this.time = new Timer(tool.swingTime)
                 this.input1.changed = false;
             }
 
             if(selected == this && player.stamina.value > 0){
 
-                    if(UpdateTime(this)){
-                    this.time = 0;
+                    if(this.time.Update()){
+                   
                     let is = {};
                     player.stamina.Sub(1);
                     player.exp.Add(5);
@@ -72,6 +77,7 @@ class Forage extends Panel{
                     }
 
                     this.quant = Math.floor(Math.random() * 4) + 1;
+                    this.particleSystem = new ParticleSystem(true,is.name,this.box,this.quant,130,100);
                     is.quant += this.quant;
             
                 }          

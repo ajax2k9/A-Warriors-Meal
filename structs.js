@@ -106,9 +106,10 @@ class Timer{
         this.maxTime = _maxTime;
     }
 
-    Update(_delta = 0.1){
+    Update(_delta = 0.1,_reset = true){
         if(this.currTime > this.maxTime){
-            this.currTime = 0;
+            
+            if(_reset){this.currTime = 0;}
             return true
         } else {
             this.currTime += _delta;
