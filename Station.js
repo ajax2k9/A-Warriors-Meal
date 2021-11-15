@@ -28,8 +28,7 @@ class ReqDisplay{
 
 class Station{
     constructor(_name,_parent,_x,_y){
-        this.processTime=100;
-        this.time = 0;
+        this.time = new Timer(100);
         this.unlocked = true;
          
         this.box = createElement("box");
@@ -66,7 +65,7 @@ class Station{
 
         //input1
         this.input1 = new EmptyStackElement(this.content);
-        this.input1.bkgd.addClass("input");
+        this.input1.bkgd.addClass("bot_left");
 
         this.stacks =[];
         
@@ -78,7 +77,7 @@ class Station{
         
         //output
         this.output = new EmptyStackElement(this.content);
-        this.output.bkgd.addClass("output");
+        this.output.bkgd.addClass("bot_right");
         this.output_n1 = undefined;
       
         this.unlocks = {};
@@ -151,7 +150,7 @@ class Station{
             this.output.changed = false;
         }
         
-        this.progBar.Draw(this.time,this.processTime);
+        this.progBar.Draw(this.time.currTime,this.time.maxTime);
         this.input1.Draw();
         this.input2.Draw();
         this.output.Draw();
@@ -159,13 +158,10 @@ class Station{
         if(selected != this)return;
 
         if(this.output.itemStack.name == "null" || _heat < this.output.itemStack.Heat || player.stamina.value <= 0){
-            this.time = 0;
+            this.time.currTime = 0;
         } else if(this.output.itemStack.CheckRecipe()) {
-            if(this.time < this.processTime ){
-                this.time++;
-            } else {
+           if(this.time.Update()) {
                 this.output.itemStack.ConsumeInputs();
-                this.time = 0;
                 player.stamina.Sub(0.1);
                 player.exp.Add(1);
             }

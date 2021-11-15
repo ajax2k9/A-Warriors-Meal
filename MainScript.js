@@ -86,7 +86,7 @@ function setup() {
 let test;
 function SetupMainInfo(){
   mainInfo.position(0,0);
-  mainInfo.size(208,windowHeight);
+  mainInfo.size(208,800);
   mainInfo.style("background-color","black");
   
   hBar = new StatBar(mainInfo,"heart","red");
@@ -108,19 +108,18 @@ function SetupMainInfo(){
 
   let button = createButton("save","saveButton");
   button.size(200,20);
-  button.position(0,windowHeight -40);
+  button.position(4,750);
   button.mousePressed(()=>{SaveData();});
 
   let button2 = createButton("load","loadButton");
   button2.size(200,20);
-  button2.position(0,windowHeight -80);
+  button2.position(4,776);
   button2.mousePressed(()=>{LoadData();});  
 }
 
 function SaveData(){
   localStorage.setItem("pantry",JSON.stringify(pantry));
   localStorage.setItem("inventory",JSON.stringify(inventory));
-  
   localStorage.setItem("player",JSON.stringify(player));
 }
 

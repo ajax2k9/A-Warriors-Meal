@@ -1,8 +1,5 @@
 class Panel{
     constructor(_x,_y,_w,_h,_parent,_name){
-
-        this.processTime=100;
-        this.time = 0;
         this.unlocked = true;
         
         this.box = createElement("box");

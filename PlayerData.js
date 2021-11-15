@@ -35,6 +35,7 @@ class Player{
         this.health = new Stat(100);
         this.stamina = new Stat(10);
         this.hunger = new Stat(50);
+        this.defense = 0;
         this.resting = false;
         this.exp = new Exp(50);
         this.popularity = 0; 
@@ -70,30 +71,7 @@ class Player{
             this.stamina.value = this.stamina.max;
         }
 
-        if(!this.timer.Update()) return;
-
-        if(this.resting){
-            if(this.stamina.value < this.stamina.max){
-                if(this.hunger.value > 0){
-                    if(this.campfireEffect){
-                        this.stamina.Add(5);
-                    } else {
-                        this.stamina.Add(1);
-                    }
-
-                    this.hunger.Sub(1); 
-                } else {
-                    this.stamina.Add(0.5);
-                }
-            }
-        
-            if(this.hunger.value > 0 && this.health.value < this.health.max){
-                this.health.Add(10);
-                this.hunger.Sub(1);
-            }
-        }
-
-        if(this.hunger.value<=0 && this.health.value > 10){
+        if(this.timer.Update() && this.hunger.value<=0 && this.health.value > 10){
             this.health.Sub(2);    
         }
     }

@@ -13,9 +13,6 @@ class Forage extends Panel{
         this.stacks.push(pantry["fist"]);
          
         this.input1.AddStackList(this.stacks);
-
-        this.time = new Timer(100);
-
     }
 
     GotAttacked(){
@@ -49,11 +46,13 @@ class Forage extends Panel{
                     player.stamina.Sub(1);
                     player.exp.Add(5);
 
-                    let attackChance = Math.max(0,Math.min(25,25-player.defence));
+                    let attackChance = Math.max(0,Math.min(25,25-player.defense));
                     attackChance /= 100;
-                    
                     if(Math.random() < attackChance){
-                        player.health.Sub(Math.random() * 20);
+                        let loss = Math.floor(Math.random() * 20);
+                        player.health.Sub(loss);
+                        let lossDisp = Math.max(1,Math.floor(loss/5));
+                        this.particleSystem = new ParticleSystem(false,"heart",this.box,lossDisp,130,100);
                         return;
                     }
 
