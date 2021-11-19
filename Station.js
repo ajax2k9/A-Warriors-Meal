@@ -81,7 +81,7 @@ class Station{
         this.output_n1 = undefined;
       
         this.unlocks = {};
-        this.reqDisplay = new ReqDisplay(this.box,20,0,this);
+        this.reqDisplay = new ReqDisplay(this.box,20,0);
     }
 
     SetTitle(_title){

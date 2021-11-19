@@ -4,7 +4,8 @@
         ["sword",1,50,10],
         ["fishing_pole",0,100,10],
         ["fist",3,10,10],
-        ["basket",3,10,10]
+        ["basket",3,10,10],
+        ["bucket",3,10,10]
     ],
     "food":[
         ["steak",50,5],
@@ -17,7 +18,8 @@
         ["carrot",0],
         ["potato",0],
         ["berries",0,10],
-        ["seeds",0,0]
+        ["seeds",0,0],
+        ["wheat",0,0]
     ],
 
     "items":["null","stone"],
@@ -29,6 +31,7 @@
     ],
 
     "animals":[
-        ["chicken",20]
+        ["chicken",20],
+        ["cow",30]
     ]
 }
