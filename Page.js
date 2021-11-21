@@ -58,6 +58,9 @@ class Panel{
     Draw(){
        this.input1.Draw();
        this.progBar.Draw(this.time.currTime,this.time.maxTime);
+       if(this.particleSystem != undefined){
+            this.particleSystem.Draw();
+        }
 
     }
 }

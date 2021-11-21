@@ -23,7 +23,6 @@ class Campfire extends Panel{
         this.loadBar.pbar.style("background-color","green");
         this.loadBar.Position(60,170);
         this.loadBar.SetSize(155,4);
-        
     }
 
     UpdateBuffer(){

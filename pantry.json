@@ -5,7 +5,8 @@
         ["fishing_pole",0,100,10],
         ["fist",3,10,10],
         ["basket",3,10,10],
-        ["bucket",3,10,10]
+        ["bucket",3,10,10],
+        ["scythe",3,10,10]
     ],
     "food":[
         ["steak",50,5],

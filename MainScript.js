@@ -145,6 +145,8 @@ function LoadData(){
 }
 
 function UnlockFarm(){
+  pantry["cow"].quant = 2;
+  pantry["chicken"].quant = 2;
   selector.UnlockPage(4);
 }
 

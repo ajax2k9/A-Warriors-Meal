@@ -15,21 +15,8 @@ class Forage extends Panel{
         this.input1.AddStackList(this.stacks);
     }
 
-    GotAttacked(){
-        let phrases = [];
-        phrases.push("That wasnt a chicken, it was a goose");
-        phrases.push("A wolf gave you a hug with it's claws");
-        phrases.push("A bear mistaked you for bacon");
-
-        return phrases[Math.floor(Math.random()* phrases.length)];  
-    }
-
     Draw(){ 
         super.Draw();
-        
-        if(this.particleSystem != undefined){
-            this.particleSystem.Draw();
-        }
 
         let tool = this.input1.itemStack;
         if ( tool instanceof Tool){
