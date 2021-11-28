@@ -123,6 +123,14 @@ button:hover {
     border-radius: 5px;
 }
 
+.hover_window{
+    display: inline;
+    width: 40px;
+    height: 40px;
+    background-color:rgb(100, 100, 100);
+    border-radius: 5px;
+}
+
 .bot_left{
     left: 8px;
     bottom: 8px;
@@ -141,6 +149,19 @@ button:hover {
 .top_right{
     right: 8px;
     top: 8px;
+}
+
+.upgrade_butt{
+    display: block;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    width:24px;
+    height: 24px;
+    background-color:green;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 5px;
 }
 
 .item_stack:hover{

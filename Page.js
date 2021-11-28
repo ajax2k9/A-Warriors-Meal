@@ -70,6 +70,7 @@ class Page{
         this.name = _name;
         this.page = createElement(_name);
         this.page.class("page");
+        this.page.position(220,60);
         this.page.hide();
         this.selectedFood = undefined;
         this.unlocked = false;

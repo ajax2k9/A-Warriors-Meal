@@ -2,7 +2,7 @@
  "example":"[give,quant,tage,quant,hp,attk,def,str]",
  "knight":["stone",2,"steak",1,10,10,10,20],
  "Squirrel":["sticks",10,"berries",2,2,1,5,5],
- "Orc":["sand",2,"chicken",5,100,20,10,20],
- "Bear":["wood",4,"raw_fish",2,50,20,5,20],
+ "Orc":["sand",2,"chicken_cooked",5,100,20,10,20],
+ "Bear":["wood",4,"cooked_fish",2,50,20,5,20],
  "Goblin":["gold_ore",5,"cooked_fish",1,10,5,5,10]   
 }

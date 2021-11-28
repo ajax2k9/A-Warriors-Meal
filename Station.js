@@ -28,7 +28,7 @@ class ReqDisplay{
 
 class Station{
     constructor(_name,_parent,_x,_y){
-        this.time = new Timer(100);
+        this.time = new Timer(50);
         this.unlocked = true;
          
         this.box = createElement("box");
@@ -36,6 +36,7 @@ class Station{
         this.box.class("box");
         let x2 = _x + 2;
         let y2 = _y + 1;
+        this.level = 0;
 
         this.box.style("grid-row",_y + " / "+ y2);
         this.box.style("grid-column",_x+ " / " + x2);
@@ -54,27 +55,25 @@ class Station{
             selected.Ui.addClass("selected");
         });
 
+        this.inputs = [];
 
         //content box
         this.content = createElement("content");
         this.content.parent(this.box);
         this.content.class("content");
-                
-        this.SetTitle(_name);
-      
-
-        //input1
-        this.input1 = new EmptyStackElement(this.content);
-        this.input1.bkgd.addClass("bot_left");
 
         this.stacks =[];
-        
+                
+        this.SetTitle(_name);
+
+        //input 1
+        this.input1 = new EmptyStackElement(this.content);
+        this.input1.bkgd.addClass("bot_left");
+        this.inputs.push(this.input1);
+      
         this.progBar = new ProgBar(this.processTime,this.content);
         this.progBar.bkgd.addClass("stationProg");
 
-        //input2
-        this.input2 = new EmptyStackElement(this.input1.bkgd,44,0);
-        
         //output
         this.output = new EmptyStackElement(this.content);
         this.output.bkgd.addClass("bot_right");
@@ -82,6 +81,23 @@ class Station{
       
         this.unlocks = {};
         this.reqDisplay = new ReqDisplay(this.box,20,0);
+
+        this.upgradeButt = new UpgradeButton(this.content,this);
+        this.UpdateStation();
+
+        
+    }
+
+    UpdateStation(){
+        //inputs
+        for (let i = 1; i < this.level; i++) {
+            let input = new EmptyStackElement(this.input1.bkgd,44*i,0);
+            this.inputs.push(input);
+        }
+
+        this.progBar.bkgd.style("left",14+44 * this.inputs.length + "px");
+        this.progBar.bkgd.style("bottom","24px");
+        this.progBar.SetSize(484 - 44 * this.inputs.length,4);
     }
 
     SetTitle(_title){
@@ -131,11 +147,11 @@ class Station{
         let is = this.output.itemStack;
             
         if(is.input1.quant != undefined){
-            this.input1.ChangeItemstack(is.input1);
+            this.inputs[0].ChangeItemstack(is.input1);
         }
 
         if(is.input2.quant != undefined){
-            this.input2.ChangeItemstack(is.input2);
+            this.inputs[1].ChangeItemstack(is.input2);
         }
     }
 
@@ -151,19 +167,16 @@ class Station{
         }
         
         this.progBar.Draw(this.time.currTime,this.time.maxTime);
-        this.input1.Draw();
-        this.input2.Draw();
+        this.inputs.forEach(e=>{e.Draw();});
         this.output.Draw();
 
-        if(selected != this)return;
+       // if(selected != this)return;
 
-        if(this.output.itemStack.name == "null" || _heat < this.output.itemStack.Heat || player.stamina.value <= 0){
+        if(this.output.itemStack.name == "null" || _heat < this.output.itemStack.Heat){
             this.time.currTime = 0;
         } else if(this.output.itemStack.CheckRecipe()) {
            if(this.time.Update()) {
                 this.output.itemStack.ConsumeInputs();
-                player.stamina.Sub(0.1);
-                player.exp.Add(1);
             }
         }
     }

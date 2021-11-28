@@ -11,9 +11,9 @@
     "food":[
         ["steak",50,5],
         ["raw_beef",0],
-        ["chicken_cooked",50,10],
+        ["chicken_cooked",20,10],
         ["chicken_raw",0],
-        ["cooked_fish",60,10],
+        ["cooked_fish",10,10],
         ["raw_fish",0],
         ["stew",60,30],
         ["carrot",0],
@@ -23,7 +23,7 @@
         ["wheat",0,0]
     ],
 
-    "items":["null","stone"],
+    "items":["null","stone","sand"],
 
     "fuels":[
         ["sticks",100,100],

@@ -76,6 +76,119 @@ class StatBar extends ProgBar{
 
 
 }
+class UpgradeHoverElement{
+    constructor(_parent){
+        this.ready = false;
+        this.box = createElement("upgradeHover");
+        this.box.parent(_parent);
+        this.box.class("hover_window");
+        this.box.position(30,0);
+        this.box.size(128,128);
+        this.Show(false);
+
+        this.unlocks = {};
+    }
+
+    AddUnlock(_name,_quant){
+        this.unlocks[_name] = _quant;
+    }
+
+    Update(){
+        this.ready = true;
+
+        this.box.html("");
+        const keys = Object.keys(this.unlocks);
+        let _x = 0;
+        let _y = 0;
+        for (const key of keys) {
+            let quant = this.unlocks[key];
+            let e = new SimpleStack(key,quant,this.box,_x*44,_y*44);
+            if(quant > pantry[key].quant){
+                this.ready = false;
+            } else {
+                e.text.style("color","rgb(100,255,100)");
+            }
+
+            _x++;
+            if(_x > 2){
+                _x = 0;
+                _y++;
+            }
+        }
+    }
+
+    Show(_show){
+        if(_show){
+            
+            this.Update();
+            this.box.show();
+        } else {
+            this.box.hide();
+        }
+    }
+}
+
+class UpgradeButton{
+    constructor(_parent,_obj){
+        this.box = createElement("upgrade");
+        this.box.html("+");
+        this.box.parent(_parent);
+        this.box.class("upgrade_butt");
+
+        this.obj = _obj;
+        this.upgradeHover = new UpgradeHoverElement(this.box);
+        this.box.mouseOver(()=>{this.upgradeHover.Show(true)});
+        this.box.mouseOut(()=>{this.upgradeHover.Show(false)});
+        this.box.mousePressed(()=>{
+            if(this.upgradeHover.ready == false) return;
+
+            let reqs = this.upgradeHover.unlocks;
+
+            const keys = Object.keys(reqs);
+            for (const key of keys) {
+                pantry[key].quant -= reqs[key];
+            }
+
+            this.obj.Upgrade();
+            this.upgradeHover.ready = false;
+            this.upgradeHover.Update();
+        });
+    }
+
+    AddUnlock(_name,_quant){
+        this.upgradeHover.AddUnlock(_name,_quant);
+    }
+
+    SetUnlocks(_list){
+        this.ClearUnlocks();
+        _list.forEach(e=>{
+            this.AddUnlock(e[0],e[1]);
+        });
+    }
+
+    ClearUnlocks(){
+        this.upgradeHover.unlocks = {};
+    }
+}
+
+class SimpleStack{
+    constructor(_name,_quant,_parent,_x,_y){
+        this.box = createElement("simpleStack");
+        this.box.parent(_parent);
+        this.box.position(_x,_y);
+
+        this.img = createImg("images/"+_name+".png",_name);
+        this.img.parent(this.box);
+        this.img.size(32,32);
+        this.img.position(0,0);
+
+        this.text = createP(_quant);
+        this.text.parent(this.box);
+        this.text.position(16,0);
+        this.text.class("quant_text");
+
+    }
+}
 
 class ItemStackElement{
     constructor(_itemStack,_parent,_x,_y){
@@ -114,11 +227,6 @@ class ItemStackElement{
         this.bkgd.mousePressed(()=>{
             this.stackList.ToggleVisible();});
 
-    }
-
-    Grid(_r,_c){
-        this.bkgd.style("grid-column",_c);
-        this.bkgd.style("grid-row",_r);
     }
 
     Draw(){

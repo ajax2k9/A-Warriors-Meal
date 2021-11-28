@@ -170,23 +170,27 @@ class Field extends Panel{
         if(selected == this){
             if(this.operation == "none"){
                 let input = this.input1.itemStack;
-                if( input.name == "seeds" && input.quant > 0 && this.sowTime.Update()){
-                    this.seeds++;
-                    input.quant--;
+                    if( input.name == "seeds" && input.quant > 0){
+                        if(this.sowTime.Update()){
+                        this.seeds++;
+                        input.quant--;
 
-                    player.stamina.Sub(0.5);
-                    player.exp.Add(2);
+                        player.stamina.Sub(0.5);
+                        player.exp.Add(2);
 
-                    let phase = Math.floor(this.seeds / 25 * 3);
+                        let phase = Math.floor(this.seeds / 25 * 3);
 
-                    if(phase != this.phase_n1){
-                        this.ChangeGrowthStage(phase);
-                        this.phase_n1 = phase;
+                        if(phase != this.phase_n1){
+                            this.ChangeGrowthStage(phase);
+                            this.phase_n1 = phase;
+                        }
+
+                        if(input.quant <= 0 || this.seeds >= 25){
+                            this.operation = "growing";
+                        }
                     }
-
-                    if(input.quant <= 0 || this.seeds >= 25){
-                        this.operation = "growing";
-                    }
+                } else {
+                    this.sowTime.Reset();
                 }
             }
 
@@ -233,11 +237,16 @@ class Farm extends Page{
         this.coop = new Coop(1,1,this.page);
         this.ranch = new Ranch(2,1,this.page);
         this.field = new Field(3,1,this.page);
+        this.quern = new Quern(this.page,1,4,this.page);
+        this.oven  = new Oven(this.page,1,3,this.page);
+        
     }
 
     Draw(){
         this.coop.Draw();
         this.ranch.Draw();
         this.field.Draw();
+        this.quern.Draw();
+        this.oven.Draw();
     }
 }

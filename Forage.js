@@ -51,7 +51,7 @@ class Forage extends Panel{
                             is = pantry["raw_fish"];
                             break;
                         case ToolType.FIST:
-                            let rand_array = [pantry["berries"],inventory["sticks"],pantry["carrot"],pantry["potato"]];
+                            let rand_array = [pantry["berries"],inventory["sticks"],pantry["carrot"],pantry["potato"],pantry["wheat"]];
                             let choice = Math.floor(Math.random() * rand_array.length);
                             is = rand_array[choice];
                             break;
