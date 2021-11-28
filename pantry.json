@@ -23,7 +23,7 @@
         ["wheat",0,0]
     ],
 
-    "items":["null","stone","sand"],
+    "items":["null","stone","sand","glass","bricks","iron"],
 
     "fuels":[
         ["sticks",100,100],

@@ -1,35 +1,10 @@
-class ReqDisplay{
-    constructor(_parent,_x,_y){
-        this.box = createElement("unlock");
-        this.box.parent(_parent);
-        this.box.position(_x,_y);
-      //  this.box.class("unlocks");
-
-        this.button = createButton("Locked");
-        this.button.style("background-color","red");
-        this.button.parent(this.box);
-        this.button.position(260,70);
-        this.box.hide();
-    }
-
-    DisplayUnlocks(_unlockList){
-        let posY,posX= 15;
-        const keys = Object.keys(_unlockList);
-
-        for (const key of keys) {
-            let e = createP(_unlockList[key]+"x" + GetImage(key));
-            e.parent(this.box);
-            e.class("infotext");
-            e.style("padding-right","10px");
-        }
-    }
-}
 
 
 class Station{
     constructor(_name,_parent,_x,_y){
         this.time = new Timer(50);
         this.unlocked = true;
+        this.unlocks = {};
          
         this.box = createElement("box");
         this.box.parent(_parent);
@@ -43,8 +18,10 @@ class Station{
 
         this.box.mousePressed(()=>{
             if(!this.unlocked){
-                this.Purchase();
-                return;
+                if(this.reqDisplay.Purchase()){
+                    this.unlocked = true;
+                    this.content.show();
+                }
             }
 
             if(selected != undefined){
@@ -78,14 +55,21 @@ class Station{
         this.output = new EmptyStackElement(this.content);
         this.output.bkgd.addClass("bot_right");
         this.output_n1 = undefined;
-      
-        this.unlocks = {};
-        this.reqDisplay = new ReqDisplay(this.box,20,0);
-
         this.upgradeButt = new UpgradeButton(this.content,this);
         this.UpdateStation();
 
         
+    }
+
+    DisplayUnlocks(_unlocks){
+        this.reqDisplay = new ReqDisplay(this.box,4,4);
+        this.reqDisplay.DisplayUnlocks(_unlocks);
+        this.unlocked = false;
+        this.content.hide();
+    }
+
+    Upgrade(){
+        //function template, define in other stations
     }
 
     UpdateStation(){
@@ -105,44 +89,7 @@ class Station{
         this.title.parent(this.content);
         this.title.class("title")
     }
-       
-    AddUnlock(_is,_quant){
-        this.unlocks[_is.name] = _quant;
-        this.unlocked = false;
-        this.content.hide();
-        this.reqDisplay.box.show();
-        this.reqDisplay.box.style("display","flex");
-    }
-
-
-    CheckReqs(){
-        const keys = Object.keys(this.unlocks);
-        for (const key of keys) {
-            if(inventory[key] == undefined || this.unlocks[key] > inventory[key].quant){
-                this.reqDisplay.button.style("background-color","red");
-                this.reqDisplay.button.html("Locked");
-                return false;
-            }
-        }
-        this.reqDisplay.button.style("background-color","green");
-        this.reqDisplay.button.html("Unlock");
-        return true;
-    }
-
-    Purchase(){
-        if(!this.CheckReqs()) return;    
-
-        const keys = Object.keys(this.unlocks);
-        for (const key of keys) {
-            inventory[key].quant -= this.unlocks[key];
-        }
-        this.unlocked = true;
-        this.reqDisplay.box.hide();
-        this.content.show();
-
-    }
     
-
     UpdateInputs(){
         let is = this.output.itemStack;
             
@@ -156,8 +103,8 @@ class Station{
     }
 
     Draw(_heat){
-        if(this.unlocked == false){
-            this.CheckReqs();    
+        if(this.unlocked == false){   
+            this.reqDisplay.CheckReqs(); 
             return;
         }
 

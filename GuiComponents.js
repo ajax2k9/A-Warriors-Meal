@@ -496,6 +496,72 @@ class ParticleSystem{
     }
 }
 
+class ReqDisplay{
+    constructor(_parent,_x,_y){
+        this.box = createElement("unlock");
+        this.box.parent(_parent);
+        this.box.position(_x,_y);
+
+        this.button = createElement("Locked");
+        this.button.style("background-color","red");
+        this.button.parent(_parent);
+        this.button.class("upgrade_butt");
+
+        this.lockImg = createImg("images/lock.png","lock");
+        this.lockImg.parent(this.button);
+        this.lockImg.size(16,16);
+        this.lockImg.position(4,4);
+        this.box.hide();
+    }
+
+    DisplayUnlocks(_unlockList){
+
+        this.box.show();
+        this.box.style("display","flex");
+
+        this.unlocks ={};
+
+        let x = 0;
+        let y = 0;
+        _unlockList.forEach(e=>{
+            new SimpleStack(e[0],e[1],this.box,x*44,y*44);
+            this.unlocks[e[0]] = e[1];
+            
+            if(x++ > 5){
+                x = 0;
+                y++;
+            }
+        });
+
+    }
+
+    CheckReqs(){
+        const keys = Object.keys(this.unlocks);
+       
+        for (const key of keys) {
+            if(inventory[key] == undefined || this.unlocks[key] > inventory[key].quant){
+                this.button.style("background-color","red");
+                return false;
+            }
+        }
+
+        this.button.style("background-color","green");
+        return true;
+    }
+
+    Purchase(){
+        if(!this.CheckReqs()) return false;    
+
+        const keys = Object.keys(this.unlocks);
+        for (const key of keys) {
+            inventory[key].quant -= this.unlocks[key];
+        }
+        this.box.hide();
+        this.button.hide();
+
+        return true;
+    }
+}
 
 function GetImage(_str){
     return "<img src='images/"+_str+".png' style = \" width:32px; height:32px;\">" ;

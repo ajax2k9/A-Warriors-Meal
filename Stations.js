@@ -38,25 +38,6 @@ class CookingRack extends Station{
     }
 }
 
-class CookingPot extends Station{
-    constructor(_parent,_x,_y){
-        super("Cooking Pot",_parent,_x,_y);
-
-        let stacks = [];
-
-        pantry["stew"].SetInput1(pantry["carrot"]);
-        pantry["stew"].SetInput2(pantry["potato"]);
-        
-        stacks.push(pantry["stew"]);
-        this.output.AddStackList(stacks);
-
-        this.AddUnlock(inventory["sticks"],20);
-        this.AddUnlock(inventory["stone"],10);
-
-        this.reqDisplay.DisplayUnlocks(this.unlocks);
-    }
-}
-
 class Quern extends Station{
     constructor(_parent,_x,_y){
         super("Quern",_parent,_x,_y);
@@ -67,11 +48,7 @@ class Quern extends Station{
         
         stacks.push(pantry["seeds"]);
         this.output.AddStackList(stacks);
-
-        this.AddUnlock(inventory["wood"],20);
-        this.AddUnlock(inventory["stone"],10);
-
-        this.reqDisplay.DisplayUnlocks(this.unlocks);
+        this.DisplayUnlocks([["wood",20],["stone",10]]);
     }
 }
 
@@ -85,10 +62,6 @@ class Oven extends Station{
         
         stacks.push(pantry["seeds"]);
         this.output.AddStackList(stacks);
-
-        this.AddUnlock(inventory["sand"],20);
-        this.AddUnlock(inventory["stone"],10);
-
-        this.reqDisplay.DisplayUnlocks(this.unlocks);
+        this.DisplayUnlocks([["sand",20],["stone",10]]);
     }
 }
