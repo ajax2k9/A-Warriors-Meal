@@ -1,0 +1,109 @@
+A warriors meal
+Start state
+-theme : cook food for others , so that they can swap resources as well as gain popularity
+
+-who you are: Orik, a traveller who setup camp, just living off the land
+-end state: 
+	-complete all quests
+	-unlock all recipes
+	-unlock all areas
+	-reach a popularity of 1000, and complete the kings quest
+	
+features
+-pages that represent a different area, from beginning to end:
+
+	stage 0:
+		-camp
+		-storage
+		-bench
+		
+	stage 1:
+		-quests
+		
+	stage 2:
+		-farm
+	
+	stage 3:
+		-masonry
+		
+	stage 4:
+		-brewery
+			
+	stage 5:
+		-forge
+	
+	stage 6:
+		-magic
+		
+	stage 7:
+		-final
+		
+quests:
+	-each quest will have the following requirement
+		-popularity
+		-prev quest unlocked
+
+	-quest features
+		-will have to fulfill an order in  specific amount of time
+		-possibly have some debuffs
+		
+	-quest rewards:
+		-area access
+		-rare loot like chickens and cows
+		
+
+game loop:
+	-forage / collect supplies
+	-cook the food
+	-trade the food
+	-use trades for upgrades
+
+-stage 0: amassing some resources and cooking
+	-forage
+	-burn wood
+	-cook
+	-sleep / eat
+	-put food on the bench
+	-travellers will exchange food for resources
+
+transition: gain a popularity level of 5
+
+-stage 1: do the first quest!
+	- forage / cook food to complete quest - no serving customers at this time. its all for the quest giver!	
+	
+-stage 2: farming
+	-forage seeds
+	-farm wheat
+	-grind wheat for seeds
+	-feed chickens and cows
+	-ranch chickens and cows 
+	-complete quest 2 
+	
+-stage 3: upgrades!
+	-make bricks
+	-upgrade camp fire to furnace
+	-upgrade cooking racks to cooking pots
+	-turn wood into charcoal
+	-upgrade tools
+	
+-stage 4: smelting
+	-get ores from food trades
+	-smelt ores and sand for metals and glass
+	-upgrade stations 
+	-upgrade tools
+	-complete quest 3
+	
+-stage 5: magic
+	-golems - automate stations
+	-potions - used for buffs
+	
+-stage 6: final
+	- 4 challeging quests in the kings court
+	-kings final quest
+
+	
+	
+	
+
+	
+
