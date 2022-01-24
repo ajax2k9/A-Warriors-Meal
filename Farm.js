@@ -19,7 +19,6 @@ class Coop extends Panel{
 
         this.operation = "none";
         this.seeds = 0;
-
     }
 
     Draw(){
@@ -131,15 +130,15 @@ class Ranch extends Panel{
 }
 
 class Field extends Panel{
-    constructor(_x,_y,_parent){
-        super(_x,_y,2,3,_parent,"Field");
+    constructor(_x,_y,_type,_parent){
+        super(_x,_y,2,3,_parent,_type);
         this.sowTime = new Timer(10);
 
-        this.stacks.push(pantry["seeds"]);
+        this.stacks.push(pantry[_type + "_seeds"]);
         this.stacks.push(pantry["scythe"]);
 
         this.input1.AddStackList(this.stacks);
-        this.buffer = new ItemStackElement(pantry["wheat"],this.box);
+        this.buffer = new ItemStackElement(pantry[_type],this.box);
         this.buffer.bkgd.addClass("bot_right");
 
         this.feedBar = new ProgBar(this.feedTime,this.box);
@@ -151,6 +150,7 @@ class Field extends Panel{
         this.seeds = 0;
         this.plants = 0;
         this.phase_n1 = 0;
+        this.type = _type;
         this.ChangeGrowthStage(0);
     }
 
@@ -170,7 +170,7 @@ class Field extends Panel{
         if(selected == this){
             if(this.operation == "none"){
                 let input = this.input1.itemStack;
-                    if( input.name == "seeds" && input.quant > 0){
+                    if( input.name == (this.type +"_seeds") && input.quant > 0){
                         if(this.sowTime.Update()){
                         this.seeds++;
                         input.quant--;
@@ -236,17 +236,24 @@ class Farm extends Page{
         this.unlocked = false;
         this.coop = new Coop(1,1,this.page);
         this.ranch = new Ranch(2,1,this.page);
-        this.field = new Field(3,1,this.page);
-        this.quern = new Quern(this.page,1,4,this.page);
-        this.oven  = new Oven(this.page,1,3,this.page);
-        
+        this.reqPop = 10;
+
+        let x = 3;
+        let y = 1;
+        this.fields = [];
+        pantry.crops.forEach(e => {
+         this.fields.push(new Field(x,y,e,this.page));
+         x++;
+         if(x>4){
+             x = 1;
+             y+=2;
+         }   
+        });
     }
 
     Draw(){
         this.coop.Draw();
         this.ranch.Draw();
-        this.field.Draw();
-        this.quern.Draw();
-        this.oven.Draw();
+        this.fields.forEach(e=>{e.Draw()});
     }
 }

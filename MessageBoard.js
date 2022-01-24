@@ -168,8 +168,7 @@ class MessageBoard extends Page{
         super("Quests");
         this.quests = [];
         this.unlocked = false;
-
-        this.combat = new CombatInfo(this.page,250,0);
+        this.reqPop = 10;
     }
 
     AddQuest(name,pop,party,unlockName,unlockFunc){
@@ -183,6 +182,5 @@ class MessageBoard extends Page{
 
     Draw(){
        this.quests.forEach(element=>{element.Draw();});
-       this.combat.Draw();
     }
 }

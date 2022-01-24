@@ -1,0 +1,159 @@
+{
+    "stew":{
+        "station":"pot",
+        "ingredients" : [["carrot",2],["potato",3]]
+    },
+
+    "grilled_chicken":{
+        "station":"cooking_rack",
+        "ingredients" : [["raw_chicken",1]]
+    },
+
+    "steak":{
+        "station":"cooking_rack",
+        "ingredients" : [["raw_beef",1]]
+    },
+
+    "steak_n_eggs":{
+        "station":"skillet",
+        "ingredients" : [["steak",1],["eggs",2]]
+    },
+
+    "jam":{
+        "station":"pot",
+        "ingredients" : [["sugar",10],["berries",10]]
+    },
+
+    "cocoa":{
+        "station":"quern",
+        "ingredients":[["cocoa_beans"],1]
+    },
+
+    "chocolate":{
+        "station":"pot",
+        "ingredients":[["cocoa",10],["milk",1]]
+    },
+
+    "flour":{
+        "station":"quern",
+        "ingredients":[["wheat",1]]
+    },
+
+    "seeds":{
+        "station":"quern",
+        "ingredients":[["wheat",1]],
+        "quant":3
+    },
+
+   "dough":{
+        "station":"pot",
+        "ingredients":[["dough",1],["water",1]]
+    },
+
+   "bread":{
+        "station":"oven",
+        "ingredients":[["dough",1]]
+    },
+
+    "cornmeal":{
+        "station":"quern",
+        "ingredients":[["corn",1]]
+    },
+    
+    "corn_dough":{
+        "station":"pot",
+        "ingredients":[["cornmeal",1],["water",1]]
+    },
+
+    "tortilla":{
+        "station":"oven",
+        "ingredients":[["cornmeal",1],["water",1]]
+    }
+    ,
+   "quesadilla":{
+        "station":"skillet",
+        "ingredients":[["tortilla",1],["cheese",1]]
+    },
+
+    "vinegar":{
+        "station":"fermenter",
+        "ingredients":[["rice",5]]
+    },
+
+    "cheese":{
+        "station":"pot",
+        "ingredients":[["vinegar",1],["milk",1]],
+        "quant":10
+    },
+
+   "pb":{
+        "station":"quern",
+        "ingredients":[["peanut",1]]
+    },
+
+   "pb&j":{
+        "station":"counter",
+        "ingredients":[["pb",1],["jam",1],["bread",1]]
+    },
+
+   "roasted_coffee":{
+        "station":"oven",
+        "ingredients":[["coffee",1]]
+    },
+
+   "coffee_grounds":{
+        "station":"quern",
+        "ingredients":[["roasted_coffee",1]]
+    },
+
+  "coffee":{
+        "station":"pot",
+        "ingredients":[["coffee_grounds",1],["water",1]],
+        "quant":10
+    },
+
+  "latte":{
+        "station":"pot",
+        "ingredients":[["coffee",10],["milk",1]],
+        "quant":10
+    },
+
+  "mocha":{
+        "station":"pot",
+        "ingredients":[["latte",10],["chocolate",1]],
+        "quant":10
+    },
+    
+  "roasted_carrot":{
+        "station":"rack",
+        "ingredients":[["carrot",1]]
+    },
+
+    "baked_potato":{
+        "station":"rack",
+        "ingredients":[["potato",1]]
+    },
+
+    "beef_stew":{
+        "station":"pot",
+        "ingredients":[["potato",4],["carrot",4],["steak",1]],
+        "quant":4
+    },
+
+    "fried_egg":{
+        "station":"skillet",
+        "ingredients":[["egg",1]]
+    },
+
+    "noodles":{
+        "station":"counter",
+        "ingredients":[["egg",1],["flour",1]],
+        "quant":4
+    },
+
+    "chicken_soup":{
+        "station":"pot",
+        "ingredients":[["noodles",4],["grilled_chicken",1]],
+        "quant":4
+    }
+}

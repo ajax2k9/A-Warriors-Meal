@@ -1,0 +1,27 @@
+{
+    "coop":{
+        "name":"flew the coop",
+        "reqs":[["cooked_chicken",30]],
+        "items":[["chicken",2]],
+        "page":"farm",
+        "panel":"coop"
+    },
+
+    "ranch":{
+        "name":"Hungry Cowboy",
+        "reqs":[["steak",30],["berries",30]],
+        "items":[["cow",2]]
+    },
+
+    "wheat":{
+        "name":"wheaty Wager",
+        "reqs":[["steak",30],["berries",30]],
+        "items":[["wheat_seeds",2]]
+    },
+
+    "grinder":{
+        "name":"Mason Master",
+        "reqs":[["stone",30],["sand",30]],
+        "items":[["handle",1]]
+    }
+}

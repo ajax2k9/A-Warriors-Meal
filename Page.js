@@ -74,8 +74,14 @@ class Page{
         this.page.hide();
         this.selectedFood = undefined;
         this.unlocked = false;
+        this.reqPop = 0;
     }
 
+    CheckPop(){
+        if(player.popularity >= this.reqPop){
+            this.unlocked = true;
+        }
+    }
 
     DisplayPage(){
         this.page.show();

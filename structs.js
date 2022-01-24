@@ -124,3 +124,4 @@ class Timer{
         this.currTime = _time;
     }
 }
+

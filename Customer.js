@@ -39,12 +39,7 @@ class Customer{
     PerformTrade(_slots){
 
        if(!this.TakeItems(_slots)) return "";
-
-        successfulTrades++;
-         if(successfulTrades >=5 && !msgBoard.unlocked){
-            selector.UnlockPage(3);
-         } 
-         
+                
         storage.UpdateInventory(this.trade.give, this.level * this.trade.giveQuant);
 
         return "A "+this.name + " traded " + (this.trade.giveQuant * this.level) +"x"+ GetImage(this.trade.give) + "for"+this.trade.quant +"x"+GetImage(this.trade.take); 

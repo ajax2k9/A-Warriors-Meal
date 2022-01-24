@@ -1,0 +1,50 @@
+{
+    "cooking_rack":{
+        "name":"cooking rack",
+        "slots":1,
+        "upgrade":[["stone",10],["wood",20]]
+    },
+
+    "pot":{
+        "name":"pot",
+        "slots":3,
+        "unlock":[["wood",10],["fired_clay",1],["rope",10]],
+        "upgrade":[["fired_clay",10],["stone",20]]
+    },
+
+    "oven":{
+        "name":"oven",
+        "slots":1,
+        "unlock":[["iron",30],["glass",10]],
+        "upgrade":[["coils",10],["lamps",20]]
+    },
+
+    "skillet":{
+        "name":"skillet",
+        "slots":4,
+        "unlock":[["skillet",1]],
+        "upgrade":[["cast_iron",10]]
+    },
+
+    "quern":{
+        "name":"quern",
+        "slots":1,
+        "unlock":[["stone",200],["wood",30]],
+        "upgrade":[["oil",10]]
+    },
+
+   "fermenter":{
+        "name":"fermenter",
+        "slots":2,
+        "unlock":[["iron",50],["wood",30]],
+        "upgrade":[["yeast",30]]
+    },
+
+    "counter":{
+        "name":"counter",
+        "slots":5,
+        "unlock":[["granite",50],["wood",30],[]],
+        "upgrade":[["granite",300]]
+    }
+
+}

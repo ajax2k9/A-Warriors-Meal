@@ -55,4 +55,17 @@ class Selector {
         this.UpdateSelected(this.selection,oldSelection);
     }
 
+    CheckPages(){
+        pages.forEach(e=>{
+            if(e.unlocked == false){
+                if(e.reqPop <= player.popularity){
+                    e.unlocked = true;   
+                    this.ShowButtons();                                     
+                }
+            }
+        });
+    }
+
+
+
 }

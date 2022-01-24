@@ -10,8 +10,8 @@ let bbar = [];
 let loaded = false;
 
 function preload() {
-  loadJSON("pantry.json",GetData);
-  loadJSON("customers.json",GetCustomers);
+  loadJSON("databases/pantry.json",GetData);
+  loadJSON("databases/customers.json",GetCustomers);
   loaded = true;
 }
 
@@ -25,8 +25,9 @@ function GetCustomers(_data){
      let unit = new Unit(key,_data[key][4],_data[key][5],_data[key][6],_data[key][7]);
      units[key] = unit;
   }
-
 }
+
+
 
 function GetData(_data){
   let tools = _data["tools"];
@@ -59,6 +60,12 @@ function GetData(_data){
     pantry[e[0]] = new Animal(e[0], e[1]);
   });
 
+  pantry.crops = _data["crops"];
+
+  pantry.crops.forEach(e=>{
+    pantry[e] = new Food(e,0,0);
+    pantry[e + "_seeds"] = new Food(e + "_seeds",0,0);
+  });
 }
 
 
@@ -75,6 +82,8 @@ function setup() {
   pages.push(storage);
   pages.push(msgBoard);
   pages.push(new Farm());
+  pages.push(new Mason());
+  pages.push(new Brewery());
 
   selector = new Selector();
   selectedAction = undefined;
@@ -144,26 +153,18 @@ function LoadData(){
   }
 }
 
-function UnlockFarm(){
-  pantry["cow"].quant = 2;
-  pantry["chicken"].quant = 2;
-  selector.UnlockPage(4);
-}
-
 
 function SetupQuests(){
-  let p = new Party();
-  
-  p.AddUnit(new Unit("Wolf",20,4,2,2));
-  p.AddUnit(new Unit("Dog",10,2,3,10));
-  p.AddUnit(new Unit("Bear",300,4,4,200));
-
-  msgBoard.AddQuest("Flew the coop" ,10,p,"Farm",UnlockFarm);
+ 
 }
 
 function draw(){
  pages.forEach(Element=>{if(Element.active)Element.Draw();})
+ 
  player.Update();
+ 
+ selector.CheckPages();
+
  hBar.Draw(player.health.value,player.health.max);
  sBar.Draw(player.stamina.value,player.stamina.max);
  fBar.Draw(player.hunger.value,player.hunger.max);

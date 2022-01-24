@@ -15,12 +15,7 @@
         ["chicken_raw",0],
         ["cooked_fish",10,10],
         ["raw_fish",0],
-        ["stew",60,30],
-        ["carrot",0],
-        ["potato",0],
-        ["berries",0,10],
-        ["seeds",0,0],
-        ["wheat",0,0]
+        ["stew",60,30]
     ],
 
     "items":["null","stone","sand","glass","bricks","iron"],
@@ -34,5 +29,14 @@
     "animals":[
         ["chicken",20],
         ["cow",30]
+    ],
+
+    "crops":[
+        "wheat",
+        "potato",
+        "carrot",
+        "berries",
+        "cocoa",
+        "coffee"
     ]
 }
