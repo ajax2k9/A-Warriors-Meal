@@ -12,6 +12,7 @@
         ["steak",50,5],
         ["raw_beef",0],
         ["chicken_cooked",20,10],
+        ["baked_potato",20,10],
         ["chicken_raw",0],
         ["cooked_fish",10,10],
         ["raw_fish",0],

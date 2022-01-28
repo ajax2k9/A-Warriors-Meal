@@ -40,13 +40,15 @@ class Panel{
         this.icon.size(70,60);
 
         this.time = new Timer(100);
-        
     }
 
     SetTitle(_title){
-        this.title = createP(_title);
-        this.title.parent(this.box);
-        this.title.class("title")
+        if(this.title == undefined){this.title = createP(_title);
+            this.title.parent(this.box);
+            this.title.class("title");
+        } else {
+            this.title.html(_title);
+        }
     }
 
     SetGrid(_r,_c){

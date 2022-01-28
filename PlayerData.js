@@ -7,6 +7,7 @@ let selector;
 let selected;
 let stall;
 let customers = [];
+let recipes = {};
 let units = {};
 let msgBoard; 
 let mainInfo;

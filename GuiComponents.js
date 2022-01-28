@@ -213,6 +213,15 @@ class ItemStackElement{
        
     }
     
+    show(){
+        this.bkgd.show();
+    }
+
+    hide(){
+        this.bkgd.hide();
+    }
+
+    
     ShowQuant(_show){
         if(_show){
             this.text.show();

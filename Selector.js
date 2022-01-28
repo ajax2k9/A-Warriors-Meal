@@ -6,7 +6,6 @@ class Selector {
     }
 
     UpdateSelected(_selection,_oldSelection){
-       console.log("_selection is : "+_selection );
         pages[_oldSelection].HidePage();
         pages[_selection].DisplayPage();
         this.selection = _selection;

@@ -4,13 +4,13 @@
         "ingredients" : [["carrot",2],["potato",3]]
     },
 
-    "grilled_chicken":{
-        "station":"cooking_rack",
-        "ingredients" : [["raw_chicken",1]]
+    "chicken_cooked":{
+        "station":"cooking rack",
+        "ingredients" : [["chicken_raw",1],["steak",1]]
     },
 
     "steak":{
-        "station":"cooking_rack",
+        "station":"cooking rack",
         "ingredients" : [["raw_beef",1]]
     },
 
@@ -130,7 +130,7 @@
     },
 
     "baked_potato":{
-        "station":"rack",
+        "station":"cooking rack",
         "ingredients":[["potato",1]]
     },
 

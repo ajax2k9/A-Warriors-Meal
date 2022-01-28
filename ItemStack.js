@@ -52,36 +52,7 @@ class Tool extends ItemStack{
 class Food extends ItemStack{
     constructor(_name,_heat,_points = 0){
         super(_name)
-        this.input1={};
-        this.input2={};
-        this.quant_1 = -1;
-        this.quant_2 = -1;
         this.Heat = _heat;
         this.hungerPoints = _points;
-    }
-
-    SetInput1(_itemStack,_consumed=true,_quant=1){
-        this.input1=_itemStack;
-        this.consumed_1 = _consumed;
-        this.quant_1 = _quant;
-    }
-
-    SetInput2(_itemStack,_consumed=true,_quant=1){
-        this.input2=_itemStack;
-        this.consumed_2 = _consumed;
-        this.quant_2 = _quant;
-    }
-
-    CheckRecipe(){ 
-        if(this.quant_1 == -1 || this.input1.quant < this.quant_1) return false;
-        if(this.quant_2 != -1 && this.input2.quant < this.quant_2) return false;
-        return true;
-    }
-
-    ConsumeInputs(){
-        if(this.consumed_1)this.input1.quant-=this.quant_1;
-        if(this.quant_2 != -1 && this.consumed_2)this.input2.quant -=this.quant_2;
-
-        this.quant++;
     }
 }

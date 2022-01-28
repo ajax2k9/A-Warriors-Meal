@@ -12,7 +12,19 @@ let loaded = false;
 function preload() {
   loadJSON("databases/pantry.json",GetData);
   loadJSON("databases/customers.json",GetCustomers);
+  loadJSON("databases/recipes.json",GetRecipes);
   loaded = true;
+}
+
+function GetRecipes(_data){
+  const keys = Object.keys(_data);
+  for (const key of keys) {
+    if(recipes[_data[key].station] == undefined){
+      recipes[_data[key].station] = {};
+    }
+    let r = {ingredients:_data[key].ingredients};
+    recipes[_data[key].station][key] = r;
+  }
 }
 
 function GetCustomers(_data){

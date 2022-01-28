@@ -1,17 +1,18 @@
 
 
 class Station{
-    constructor(_name,_parent,_x,_y){
+    constructor(_names,_parent,_x,_y){
         this.time = new Timer(50);
         this.unlocked = true;
         this.unlocks = {};
-         
+        this.names = _names;
         this.box = createElement("box");
         this.box.parent(_parent);
         this.box.class("box");
         let x2 = _x + 2;
         let y2 = _y + 1;
-        this.level = 0;
+        this.level = 1;
+        this.maxlevel = 1;
 
         this.box.style("grid-row",_y + " / "+ y2);
         this.box.style("grid-column",_x+ " / " + x2);
@@ -41,23 +42,76 @@ class Station{
 
         this.stacks =[];
                 
-        this.SetTitle(_name);
+        this.SetTitle(this.names[0]);
+        
+        this.recipes = [];
 
-        //input 1
-        this.input1 = new EmptyStackElement(this.content);
-        this.input1.bkgd.addClass("bot_left");
-        this.inputs.push(this.input1);
-      
+        //inputs 
+        let input1 = new EmptyStackElement(this.content);
+        input1.bkgd.addClass("bot_left");
+        this.inputs.push(input1);
+        
+        for (let i = 1; i < 9; i++) {
+            let input = new EmptyStackElement(input1.bkgd,44*i,0);
+            input.hide();
+            this.inputs.push(input);
+        }
+
+    
+        //prog bar
         this.progBar = new ProgBar(this.processTime,this.content);
         this.progBar.bkgd.addClass("stationProg");
+
+
+        this.UpdateSlots(1);
 
         //output
         this.output = new EmptyStackElement(this.content);
         this.output.bkgd.addClass("bot_right");
         this.output_n1 = undefined;
         this.upgradeButt = new UpgradeButton(this.content,this);
-        this.UpdateStation();
 
+        this.leftArrow = createImg("images/left.png","left");
+        this.leftArrow.parent(this.content);
+        this.leftArrow.position(190,14);
+        this.leftArrow.size(10,15);
+        this.leftArrow.hide();
+
+        this.rightArrow = createImg("images/right.png","right");
+        this.rightArrow.parent(this.content);
+        this.rightArrow.position(360,14);
+        this.rightArrow.size(10,15);
+        this.rightArrow.hide();
+
+        
+        this.leftArrow.mousePressed(()=>{
+            this.level--;
+            this.level = max(1,this.level);
+            if(this.level <=this.maxlevel ){
+                this.rightArrow.show();
+            }
+            if(this.level <= 1){
+                this.leftArrow.hide();
+            }
+
+            this.UpdateStation(this.level);
+        });
+
+        this.rightArrow.mousePressed(()=>{
+            this.level++;
+            this.level = min(this.maxlevel,this.level);
+            
+            if(this.level >= this.maxlevel){
+                this.rightArrow.hide();
+            }
+            if(this.level > 1){
+                this.leftArrow.show();
+            }
+
+            this.UpdateStation(this.level);
+        });
+
+        this.UpdateStation(1);
         
     }
 
@@ -69,38 +123,61 @@ class Station{
     }
 
     Upgrade(){
-        //function template, define in other stations
+        this.maxlevel++;
+        this.rightArrow.show();
+        if(this.maxlevel >3){
+            this.upgradeButt.box.hide();
+        }
     }
 
-    UpdateStation(){
-        //inputs
-        for (let i = 1; i < this.level; i++) {
-            let input = new EmptyStackElement(this.input1.bkgd,44*i,0);
-            this.inputs.push(input);
+    UpdateSlots(_slots){
+        for(let i=0;i<_slots; i++){
+            this.inputs[i].show();
+        }
+        for(let i=_slots; i<9; i++){
+            this.inputs[i].hide();
         }
 
-        this.progBar.bkgd.style("left",14+44 * this.inputs.length + "px");
-        this.progBar.bkgd.style("bottom","24px");
-        this.progBar.SetSize(484 - 44 * this.inputs.length,4);
+        this.progBar.bkgd.style("left",14+ 44 * _slots + "px");
+        this.progBar.SetSize(484 - 44 * _slots - 1,4);
+
+    }
+
+    UpdateRecipe(_recipe){
+        
+        let slots = _recipe.ingredients.length;
+        this.UpdateSlots(slots);
+        
+        for(let i=0;i<slots; i++){
+            this.inputs[i].ChangeItemstack(pantry[_recipe.ingredients[i][0]]);
+        }
+    }
+
+    UpdateStation(_lvl){
+        if(this.names.length > 0){
+            this.SetTitle(this.names[_lvl-1]);
+        
+            this.recipes = recipes[this.names[_lvl-1]];    
+            this.stacks = [];
+        
+            const keys = Object.keys(this.recipes);
+            for(const key of keys){
+             this.stacks.push(pantry[key]);   
+            }
+            this.output.AddStackList(this.stacks);
+        }
     }
 
     SetTitle(_title){
-        this.title = createP(_title);
-        this.title.parent(this.content);
-        this.title.class("title")
+        if(this.title == undefined){
+            this.title = createP(_title);
+            this.title.parent(this.content);
+            this.title.class("title");
+        } else {
+            this.title.html(_title);
+        }
     }
     
-    UpdateInputs(){
-        let is = this.output.itemStack;
-            
-        if(is.input1.quant != undefined){
-            this.inputs[0].ChangeItemstack(is.input1);
-        }
-
-        if(is.input2.quant != undefined){
-            this.inputs[1].ChangeItemstack(is.input2);
-        }
-    }
 
     Draw(_heat){
         if(this.unlocked == false){   
@@ -109,7 +186,7 @@ class Station{
         }
 
         if(this.output.changed){
-            this.UpdateInputs();
+            this.UpdateRecipe(this.recipes[this.output.itemStack.name]);
             this.output.changed = false;
         }
         
