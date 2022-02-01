@@ -50,9 +50,8 @@ class Tool extends ItemStack{
     }
 }
 class Food extends ItemStack{
-    constructor(_name,_heat,_points = 0){
+    constructor(_name,_points = 0){
         super(_name)
-        this.Heat = _heat;
         this.hungerPoints = _points;
     }
 }

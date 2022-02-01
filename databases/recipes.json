@@ -1,63 +1,75 @@
 {
     "stew":{
         "station":"pot",
-        "ingredients" : [["carrot",2],["potato",3]]
+        "ingredients" : [["carrot",2],["potato",3]],
+        "heat":10
     },
 
     "chicken_cooked":{
         "station":"cooking rack",
-        "ingredients" : [["chicken_raw",1],["steak",1]]
+        "ingredients" : [["chicken_raw",1],["steak",1]],
+        "heat":10
     },
 
     "steak":{
         "station":"cooking rack",
-        "ingredients" : [["raw_beef",1]]
+        "ingredients" : [["raw_beef",1]],
+        "heat":10
     },
 
     "steak_n_eggs":{
         "station":"skillet",
-        "ingredients" : [["steak",1],["eggs",2]]
+        "ingredients" : [["steak",1],["eggs",2]],
+        "heat":10
     },
 
     "jam":{
         "station":"pot",
-        "ingredients" : [["sugar",10],["berries",10]]
+        "ingredients" : [["sugar",10],["berries",10]],
+        "heat":10
     },
 
     "cocoa":{
         "station":"quern",
-        "ingredients":[["cocoa_beans"],1]
+        "ingredients":[["cocoa_beans"],1],
+        "heat":10
     },
 
     "chocolate":{
         "station":"pot",
-        "ingredients":[["cocoa",10],["milk",1]]
+        "ingredients":[["cocoa",10],["milk",1]],
+        "heat":10
     },
 
     "flour":{
         "station":"quern",
-        "ingredients":[["wheat",1]]
+        "ingredients":[["wheat",1]],
+        "heat":10
     },
 
     "seeds":{
         "station":"quern",
         "ingredients":[["wheat",1]],
-        "quant":3
+        "quant":3,
+        "heat":10
     },
 
    "dough":{
         "station":"pot",
-        "ingredients":[["dough",1],["water",1]]
+        "ingredients":[["dough",1],["water",1]],
+        "heat":10
     },
 
    "bread":{
         "station":"oven",
-        "ingredients":[["dough",1]]
+        "ingredients":[["dough",1]],
+        "heat":10
     },
 
     "cornmeal":{
         "station":"quern",
-        "ingredients":[["corn",1]]
+        "ingredients":[["corn",1]],
+        "heat":10
     },
     
     "corn_dough":{

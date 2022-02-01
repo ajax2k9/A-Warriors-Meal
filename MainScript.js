@@ -22,7 +22,8 @@ function GetRecipes(_data){
     if(recipes[_data[key].station] == undefined){
       recipes[_data[key].station] = {};
     }
-    let r = {ingredients:_data[key].ingredients};
+    let r = {name:key,ingredients:_data[key].ingredients};
+    r.heat = _data[key].heat;
     recipes[_data[key].station][key] = r;
   }
 }
@@ -100,7 +101,6 @@ function setup() {
   selector = new Selector();
   selectedAction = undefined;
   
-  SetupQuests();
   SetupMainInfo();  
 }
 
@@ -165,10 +165,6 @@ function LoadData(){
   }
 }
 
-
-function SetupQuests(){
- 
-}
 
 function draw(){
  pages.forEach(Element=>{if(Element.active)Element.Draw();})

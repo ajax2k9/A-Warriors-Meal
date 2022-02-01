@@ -45,6 +45,7 @@ class Station{
         this.SetTitle(this.names[0]);
         
         this.recipes = [];
+        this.recipe = {};
 
         //inputs 
         let input1 = new EmptyStackElement(this.content);
@@ -151,6 +152,8 @@ class Station{
         for(let i=0;i<slots; i++){
             this.inputs[i].ChangeItemstack(pantry[_recipe.ingredients[i][0]]);
         }
+
+        this.recipe = _recipe;
     }
 
     UpdateStation(_lvl){
@@ -177,6 +180,24 @@ class Station{
             this.title.html(_title);
         }
     }
+
+    CheckRecipe(){
+        this.recipe.ingredients.forEach(e=>{
+            if(pantry[e[0]] == undefined || pantry[e[0]].quant < e[1]){
+                return false;
+            }
+        });
+
+        return true;
+    }
+
+    ConsumeInputs(){
+        this.recipe.ingredients.forEach(e=>{
+            pantry[e[0]].quant -= e[1];
+        });
+
+        pantry[this.recipe.name].quant += 1
+    }
     
 
     Draw(_heat){
@@ -196,11 +217,11 @@ class Station{
 
        // if(selected != this)return;
 
-        if(this.output.itemStack.name == "null" || _heat < this.output.itemStack.Heat){
+        if(this.recipe.ingredients == undefined || _heat < this.recipe.heat){
             this.time.currTime = 0;
-        } else if(this.output.itemStack.CheckRecipe()) {
+        } else if(this.CheckRecipe()) {
            if(this.time.Update()) {
-                this.output.itemStack.ConsumeInputs();
+                this.ConsumeInputs();
             }
         }
     }

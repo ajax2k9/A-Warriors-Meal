@@ -9,14 +9,14 @@
         ["scythe",3,10,10]
     ],
     "food":[
-        ["steak",50,5],
+        ["steak",5],
         ["raw_beef",0],
         ["chicken_cooked",20,10],
-        ["baked_potato",20,10],
+        ["baked_potato",10],
         ["chicken_raw",0],
-        ["cooked_fish",10,10],
+        ["cooked_fish",10],
         ["raw_fish",0],
-        ["stew",60,30]
+        ["stew",30]
     ],
 
     "items":["null","stone","sand","glass","bricks","iron"],
