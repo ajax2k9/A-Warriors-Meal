@@ -9,11 +9,18 @@ let fileData;
 let bbar = [];
 let loaded = false;
 
+let newsBox;
+
 function preload() {
   loadJSON("databases/pantry.json",GetData);
   loadJSON("databases/customers.json",GetCustomers);
   loadJSON("databases/recipes.json",GetRecipes);
+  loadJSON("databases/news.json",GetPhrases);
   loaded = true;
+}
+
+function GetPhrases(_data){
+  phrases = _data.phrases;
 }
 
 function GetRecipes(_data){
@@ -89,7 +96,7 @@ function setup() {
   stall = new Stall("Stall");
   msgBoard = new MessageBoard();
   storage = new Storage();
-
+  newsBox = new NewsBox(220,10,842,40)
   pages.push(new Camp());
   pages.push(stall);
   pages.push(storage);
@@ -102,6 +109,8 @@ function setup() {
   selectedAction = undefined;
   
   SetupMainInfo();  
+
+  selector.UpdateSelected(0,0);
 }
 
 let test;
@@ -178,6 +187,7 @@ function draw(){
  fBar.Draw(player.hunger.value,player.hunger.max);
  lBar.Draw(player.exp.value,player.exp.max);
  lvlLabel.html(player.exp.level);
+ newsBox.Draw();
  
 }
 

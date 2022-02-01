@@ -75,34 +75,6 @@ class Basket extends Bench{
     }
 }
 
-class PartyInfo{
-    constructor(_parent){
-        this.box = createElement("PartyInfo");
-        this.box.class("box");
-        this.box.parent(_parent);
-        this.box.style("grid-row","1 / 6");
-        this.box.style("grid-column","3 / 4");
-
-        this.table = createElement("party_table");
-        this.table.parent(this.box);
-        this.table.position(0,0);
-        this.table.class("partyTable");
-        this.table.html("<table><tr><th>Member</th><th><img src='images/heart.png'></th><th><img src='images/fist.png'></th><th><img src='images/sword2.png'></th><th><img src='images/shield.png'></th></tr>");
-    }
-
-    LoadTable(){
-        let str = "<table><tr><th>Member</th><th><img src='images/heart.png'></th><th><img src='images/fist.png'></th><th><img src='images/sword2.png'></th><th><img src='images/shield.png'></th></tr>";
-        let u = player.party.units;
-        u.forEach(e=>{
-            str+="<td>" + e.name+"</td><td>" + e.h.value +"</td><td>" + e.dmg + "</td><td>" + e.atk + "</td><td>" + e.def +"</td></tr>";
-        });
-
-        str+="</table>";
-
-        this.table.html(str);
-    }
-}
-
 
 class Stall extends Page{
     constructor(){
@@ -137,7 +109,6 @@ class Stall extends Page{
         this.offerTime = new Timer(30);
         this.customerTime = new Timer(30);
         this.offerTime.Set(15);
-        partyInfo = new PartyInfo(this.page);     
         this.basket = new Basket(this.page,2,1);
         this.bench = new Bench(this.page,"Oak Bench",1,1);
    }

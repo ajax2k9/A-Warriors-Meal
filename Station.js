@@ -182,13 +182,15 @@ class Station{
     }
 
     CheckRecipe(){
+        let reqsMet = true;
         this.recipe.ingredients.forEach(e=>{
-            if(pantry[e[0]] == undefined || pantry[e[0]].quant < e[1]){
-                return false;
+           
+            if(pantry[e[0]].quant == undefined || pantry[e[0]].quant < e[1]){
+                reqsMet = false;
             }
         });
-
-        return true;
+       
+        return reqsMet;
     }
 
     ConsumeInputs(){
@@ -219,7 +221,7 @@ class Station{
 
         if(this.recipe.ingredients == undefined || _heat < this.recipe.heat){
             this.time.currTime = 0;
-        } else if(this.CheckRecipe()) {
+        } else if(this.CheckRecipe() == true) {
            if(this.time.Update()) {
                 this.ConsumeInputs();
             }

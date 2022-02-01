@@ -1,3 +1,52 @@
+phrases = [];
+class NewsBox{
+    constructor(_x,_y,_w,_h){
+        this.box = createElement("box");
+        this.box.class("box");
+        this.box.position(_x,_y);
+        this.box.size(_w,_h);
+
+        this.innerBox = createElement("inner_box");
+        this.innerBox.class("box");
+        this.innerBox.style("background-color","black");
+        this.innerBox.style("overflow","hidden");
+        this.innerBox.style("white-space", "nowrap");
+        this.innerBox.parent(this.box);
+        this.innerBox.position(6,6);
+        this.innerBox.size(_w-12,_h-12);
+        
+        this.text = createP("Welcome to A Warriors Meal!");
+        this.text.parent(this.innerBox);
+        this.text.position(0,-8);
+        this.w = _w;
+        this.x = 0;
+    }
+
+    Draw(){
+        
+        if(this.x > -1 * this.text.size().width){
+            this.x-=0.5;
+        } else {
+            this.x= this.w + 10;
+            this.ProcessPhrases(player.exp.level)
+        }
+
+        this.text.position(this.x,-8);
+        
+    }
+
+    SetPhrase(_phrase){
+        this.text.html(_phrase);
+    }
+
+    ProcessPhrases(_lvl){
+        let n = Math.min(_lvl,phrases.length);
+        let m = Math.floor(Math.random() * phrases[n].length);
+        this.SetPhrase(phrases[n][m]); 
+    }
+}
+
+
 class Panel{
     constructor(_x,_y,_w,_h,_parent,_name){
         this.unlocked = true;
