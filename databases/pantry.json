@@ -19,7 +19,7 @@
         ["stew",30]
     ],
 
-    "items":["null","stone","sand","glass","bricks","iron"],
+    "items":["null","stone","sand","glass","bricks","iron","dirt"],
 
     "fuels":[
         ["sticks",100,100],

@@ -2,7 +2,7 @@ let pantry = {};
 let inventory = {};
 let pages = [];
 let menu = [];
-
+let quests = {};
 let selector;
 let selected;
 let stall;
@@ -75,5 +75,21 @@ class Player{
         if(this.timer.Update() && this.hunger.value<=0 && this.health.value > 10){
             this.health.Sub(2);    
         }
+    }
+}
+
+function giveAll100(){
+    const keys = Object.keys(pantry);
+
+    for(const key of keys){
+        if(key != "null"){
+            pantry[key].quant = 100;
+        }
+    }
+}
+
+function give100(_name){
+    if(pantry[_name].quant != undefined){
+        pantry[_name].quant = 100;
     }
 }

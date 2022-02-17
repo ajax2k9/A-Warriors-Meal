@@ -6,13 +6,13 @@ class Coop extends Panel{
 
         this.stacks.push(pantry["sword"]);
         this.stacks.push(pantry["basket"]);
-        this.stacks.push(pantry["seeds"]);
+        this.stacks.push(pantry["wheat_seeds"]);
 
         this.input1.AddStackList(this.stacks);
-        this.buffer = new ItemStackElement(pantry["chicken"],this.box);
+        this.buffer = new ItemStackElement(pantry["chicken"],this.content);
         this.buffer.bkgd.addClass("bot_right");
 
-        this.feedBar = new ProgBar(this.feedTime,this.box);
+        this.feedBar = new ProgBar(this.feedTime,this.content);
         this.feedBar.pbar.style("background-color","green");
         this.feedBar.Position(60,170);
         this.feedBar.SetSize(155,4);
@@ -74,10 +74,10 @@ class Ranch extends Panel{
         this.stacks.push(pantry["wheat"]);
 
         this.input1.AddStackList(this.stacks);
-        this.buffer = new ItemStackElement(pantry["cow"],this.box);
+        this.buffer = new ItemStackElement(pantry["cow"],this.content);
         this.buffer.bkgd.addClass("bot_right");
 
-        this.feedBar = new ProgBar(this.feedTime,this.box);
+        this.feedBar = new ProgBar(this.feedTime,this.content);
         this.feedBar.pbar.style("background-color","green");
         this.feedBar.Position(60,170);
         this.feedBar.SetSize(155,4);
@@ -133,15 +133,15 @@ class Field extends Panel{
     constructor(_x,_y,_type,_parent){
         super(_x,_y,2,3,_parent,_type);
         this.sowTime = new Timer(10);
-
+        this.unlocked = true;
         this.stacks.push(pantry[_type + "_seeds"]);
         this.stacks.push(pantry["scythe"]);
 
         this.input1.AddStackList(this.stacks);
-        this.buffer = new ItemStackElement(pantry[_type],this.box);
+        this.buffer = new ItemStackElement(pantry[_type],this.content);
         this.buffer.bkgd.addClass("bot_right");
 
-        this.feedBar = new ProgBar(this.feedTime,this.box);
+        this.feedBar = new ProgBar(this.feedTime,this.content);
         this.feedBar.pbar.style("background-color","green");
         this.feedBar.Position(60,170);
         this.feedBar.SetSize(155,4);
@@ -152,6 +152,7 @@ class Field extends Panel{
         this.phase_n1 = 0;
         this.type = _type;
         this.ChangeGrowthStage(0);
+        this.DisplayUnlocks([["wood",30],["dirt",25],[_type+"_seeds",2]]);
     }
 
     ChangeStage(_stage){
@@ -235,8 +236,10 @@ class Farm extends Page{
         super("Farm");
         this.unlocked = false;
         this.coop = new Coop(1,1,this.page);
+        this.coop.DisplayUnlocks([["bricks",10],["wood",20],["chicken",2]]);
         this.ranch = new Ranch(2,1,this.page);
-        this.reqPop = 10;
+        this.ranch.DisplayUnlocks([["wheat",10],["wood",20],["cow",2]]);
+        this.reqPop = 0;
 
         let x = 3;
         let y = 1;

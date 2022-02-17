@@ -49,8 +49,6 @@ class NewsBox{
 
 class Panel{
     constructor(_x,_y,_w,_h,_parent,_name){
-        this.unlocked = true;
-        
         this.box = createElement("box");
         this.box.parent(_parent);
         this.box.class("box");
@@ -59,16 +57,20 @@ class Panel{
 
         this.box.style("grid-row",_y + " / "+ y2);
         this.box.style("grid-column",_x+ " / " + x2);
+        this.unlocked = true;
 
+        this.content = createElement("content");
+        this.content.parent(this.box);
+        this.content.class("content");
         this.SetTitle(_name);
 
         //input1
-        this.input1 = new EmptyStackElement(this.box);
+        this.input1 = new EmptyStackElement(this.content);
         this.input1.bkgd.addClass("bot_left");
 
         this.stacks =[];
         
-        this.progBar = new ProgBar(this.processTime,this.box);
+        this.progBar = new ProgBar(this.processTime,this.content);
         this.progBar.Position(60,180);
         this.progBar.SetSize(155,4);
 
@@ -82,9 +84,26 @@ class Panel{
             selected.Ui.addClass("selected");
         });
 
+        this.box.mousePressed(()=>{
+            if(!this.unlocked){
+                if(this.reqDisplay.Purchase()){
+                    this.unlocked = true;
+                    this.content.show();
+                }
+            }
+
+            if(selected != undefined){
+                selected.Ui.removeClass("selected");
+            }
+            selected = this;
+            selected.Ui=this.box;
+            selected.Ui.addClass("selected");
+        });
+    
+
 
         this.icon = createImg("images/"+_name.toLowerCase()+".png","_name");
-        this.icon.parent(this.box);
+        this.icon.parent(this.content);
         this.icon.position(110,70);
         this.icon.size(70,60);
 
@@ -93,7 +112,7 @@ class Panel{
 
     SetTitle(_title){
         if(this.title == undefined){this.title = createP(_title);
-            this.title.parent(this.box);
+            this.title.parent(this.content);
             this.title.class("title");
         } else {
             this.title.html(_title);
@@ -106,7 +125,20 @@ class Panel{
         });
     }
 
+    DisplayUnlocks(_unlocks){
+        this.reqDisplay = new ReqDisplay(this.box,4,4);
+        this.reqDisplay.DisplayUnlocks(_unlocks);
+        this.unlocked = false;
+        this.content.hide();
+    }
+
     Draw(){
+
+        if(this.unlocked == false){   
+            this.reqDisplay.CheckReqs(); 
+            return;
+        }
+
        this.input1.Draw();
        this.progBar.Draw(this.time.currTime,this.time.maxTime);
        if(this.particleSystem != undefined){

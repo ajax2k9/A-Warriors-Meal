@@ -62,23 +62,31 @@ button:hover {
     top:98px;
 }
 
-.quest{
-    display: flex;
-    width: 520px;
-    height: 118px;
-    background-color:rgb(22, 22, 22);
-    border-radius: 8px;
-    overflow: hidden;
-    align-items: center;
-    flex-direction: column;
-
-}
-
 .box{
     background-color:rgb(22, 22, 22);
     border-radius: 8px;
     display: block;
     position: relative;
+}
+
+.menuBox{
+    background-color:black;
+    border-radius: 8px;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border: 5px;
+    border-style: solid;
+    border-color: rgb(22, 22, 22);
+}
+
+.quest{
+    background-color:rgb(22, 22, 22);
+    border-radius: 8px;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    justify-content: center; /* align horizontal */
 }
 
 .content{
@@ -257,29 +265,9 @@ button:hover {
     align-items: center;
 }
 
-.partyTable{
-    width: 100%;
-}
-
-table {
-    table-layout: fixed;
-    padding:10px;
-  }
-  
-  th,td{
-    width: 15%;
-    overflow: hidden;
-  }
-  
-  th:first-child,td:first-child{
-    width: 50%;
-    overflow: hidden;
-  }
-
-  tr:first-child{
-      height: 40px;
-  }
-
-  th:first-child{
-      text-align:left;
+.questIcon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
   }

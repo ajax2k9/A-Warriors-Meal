@@ -75,6 +75,38 @@ class Basket extends Bench{
     }
 }
 
+class QuestMenu{
+    constructor(_parent){
+        this.items = [];
+        this.box = createElement("info");
+        this.box.class("menuBox");
+        this.box.parent(_parent);
+        this.box.style("grid-row","1 / 6");
+        this.box.style("grid-column","3 / 4");
+
+        this.questName = createP("Menu");
+        this.questName.parent(this.box);
+        this.questName.style("width","100%");
+        this.questName.style("text-align","center");
+        this.y = 50;
+
+    }
+
+    AddItem(_item){
+        this.items.push(new SimpleStack(_item[0],_item[1],this.box,10,this.y));
+        this.y+=50;
+    }
+    ClearList(){
+        this.items.forEach(e=>{e.box.remove();});
+        this.items = [];
+        this.y = 50;
+    }
+
+    Draw(){
+
+    }
+}
+
 
 class Stall extends Page{
     constructor(){
@@ -111,6 +143,8 @@ class Stall extends Page{
         this.offerTime.Set(15);
         this.basket = new Basket(this.page,2,1);
         this.bench = new Bench(this.page,"Oak Bench",1,1);
+
+        this.menu = new QuestMenu(this.page);
    }
 
     DisplayPage(){

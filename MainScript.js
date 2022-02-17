@@ -16,11 +16,16 @@ function preload() {
   loadJSON("databases/customers.json",GetCustomers);
   loadJSON("databases/recipes.json",GetRecipes);
   loadJSON("databases/news.json",GetPhrases);
+  loadJSON("databases/quests.json",GetQuests);
   loaded = true;
 }
 
 function GetPhrases(_data){
   phrases = _data.phrases;
+}
+
+function GetQuests(_data){
+  quests = _data;
 }
 
 function GetRecipes(_data){
