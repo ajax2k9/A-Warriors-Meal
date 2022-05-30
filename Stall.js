@@ -56,17 +56,11 @@ class Bench{
 class Basket extends Bench{
     constructor(_parent,_x,_y){
         super(_parent,"Offering Basket",_x,_y);
-
-        this.partyLabel = createP("1/4");
-        this.partyLabel.parent(this.box);
-        this.partyLabel.class("title");
-        this.partyLabel.position(0,40);
     }
 
     Draw(){
         super.Draw();
 
-        this.partyLabel.html(player.party.count + "/" + player.party.maxSize);
 
         this.slots.forEach(element => {
             element.ShowQuant(false);
@@ -150,7 +144,7 @@ class Stall extends Page{
     DisplayPage(){
         super.DisplayPage();
         this.basket.DisplayPage(true);
-        this.bench.DisplayPage();
+        this.bench.DisplayPage(true);
         
     }
 
@@ -179,7 +173,7 @@ class Stall extends Page{
 }
 
  PerformOffers(){
-    if(customers.length > 0 && this.basket.slots != undefined){
+    if(this.basket.slots != undefined){
 
     if(this.offerTime.Update() && player.party.count < player.party.maxSize) {
             let tries = 10;
